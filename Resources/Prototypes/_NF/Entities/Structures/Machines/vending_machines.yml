@@ -68,6 +68,8 @@
   name: ContraVend
   description: Wanted across multiple sectors!
   components:
+  - type: Anchorable
+    delay: 999999
   - type: VendingMachine
     pack: ContraVendInventory
     dispenseOnHitChance: 0.25
@@ -82,8 +84,6 @@
   - type: Advertise
     pack: SyndieDrobeAds
   - type: Speech
-  - type: Anchorable
-    delay: 999999
   - type: Sprite
     sprite: _NF/Structures/Machines/VendingMachines/contra.rsi
     layers:

@@ -1322,7 +1322,7 @@ entities:
     - canCollide: False
       type: Physics
     - type: InsideEntityStorage
-- proto: FaxMachineBase
+- proto: FaxMachineShip
   entities:
   - uid: 260
     components:
@@ -1337,13 +1337,15 @@ entities:
       pos: 2.5,7.5
       parent: 2
       type: Transform
-- proto: GeneratorUranium
+- proto: GeneratorPlasma
   entities:
   - uid: 72
     components:
     - pos: 5.5,11.5
       parent: 2
       type: Transform
+    - remainingFuel: 15
+      type: FuelGenerator
 - proto: GravityGeneratorMini
   entities:
   - uid: 73
@@ -2292,7 +2294,7 @@ entities:
           occludes: True
           ent: null
       type: ContainerContainer
-- proto: WarpPoint
+- proto: WarpPointShip
   entities:
   - uid: 209
     components:
