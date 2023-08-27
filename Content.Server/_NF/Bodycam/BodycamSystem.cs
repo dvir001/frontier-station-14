@@ -209,16 +209,6 @@ namespace Content.Server._NF.Bodycam
             if (camera.Mode == BodycamMode.CameraOff || camera.User == null)
                 return null;
 
-            // try to get mobs id from ID slot
-            var userName = Loc.GetString("bodycam-component-unknown-name");
-            var userJob = Loc.GetString("bodycam-component-unknown-job");
-            if (_idCardSystem.TryFindIdCard(camera.User.Value, out var card))
-            {
-                if (card.FullName != null)
-                    userName = card.FullName;
-                if (card.JobTitle != null)
-                    userJob = card.JobTitle;
-            }
             // finally, form camera status
             var status = new BodycamStatus(uid);
             return status;
