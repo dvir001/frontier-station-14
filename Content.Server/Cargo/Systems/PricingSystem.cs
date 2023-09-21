@@ -103,7 +103,7 @@ public sealed class PricingSystem : EntitySystem
         var partRatio = totalPartsPresent / (double) totalParts;
         var partPenalty = component.Price * (1 - partRatio) * component.MissingBodyPartPenalty;
 
-        args.Price += (component.Price - partPenalty) * (_mobStateSystem.IsAlive(uid, state) ? 1.0 : component.DeathPenalty);
+        //args.Price += (component.Price - partPenalty) * (_mobStateSystem.IsAlive(uid, state) ? 1.0 : component.DeathPenalty);
     }
 
     private double GetSolutionPrice(SolutionContainerManagerComponent component)
@@ -247,7 +247,7 @@ public sealed class PricingSystem : EntitySystem
             if (TryComp<StackComponent>(uid, out var stack))
                 matPrice *= stack.Count;
 
-            price += matPrice;
+            //price += matPrice;
         }
 
         return price;
@@ -268,7 +268,7 @@ public sealed class PricingSystem : EntitySystem
                 matPrice *= ((StackComponent) stackProto.Component).Count;
             }
 
-            price += matPrice;
+            //price += matPrice;
         }
 
         return price;
