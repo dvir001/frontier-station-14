@@ -17,6 +17,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+using Content.Shared.Store;
 
 namespace Content.Server.Cargo.Systems;
 
@@ -374,6 +375,33 @@ public sealed class PricingSystem : EntitySystem
         {
             var vendPrice = (VendPriceComponent) vendProto.Component;
             price += vendPrice.Price;
+        }
+
+        return price;
+    }
+
+    //private double GetUplinkPrice(EntityPrototype prototype)
+    //{
+    //    var price = 0.0;
+
+    //    if (prototype.Components.TryGetValue(_factory.GetComponentName(typeof(ListingData)), out var uplinkProto))
+    //    {
+    //        price = uplinkProto.Cost;
+    //    }
+
+    //    return price;
+    //}
+
+    private double GetUplinkPrice(EntityUid uid)
+    {
+        var price = 0.0;
+        var uplinkuid = uid;
+
+        if (TryComp<ListingData>(uplinkuid, out var uplinkPrice))
+        {
+            // Use a conversion method or property to obtain a double value
+            var uplink = Convert.ToDouble(uplinkPrice.Cost); // Replace with the appropriate conversion method
+            price += uplink;
         }
 
         return price;
