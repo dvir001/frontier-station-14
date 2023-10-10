@@ -708,6 +708,7 @@ namespace Content.Server.Mail
             _tagSystem.AddTag(uid, "Recyclable");
             component.IsEnabled = false;
             UpdateMailTrashState(uid, true);
+            //EntityManager.QueueDeleteEntity(uid); // Delete the open mail to avoid entity spam
         }
 
         private void UpdateAntiTamperVisuals(EntityUid uid, bool isLocked)
