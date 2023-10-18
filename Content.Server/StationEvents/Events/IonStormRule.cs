@@ -106,7 +106,7 @@ public sealed class IonStormRule : StationEventSystem<IonStormRuleComponent>
 
         Spawn(toSpawn, targetCoords);
 
-        var empRange = 5;
+        var empRange = 8;
         var empEnergyConsumption = 50000;
         var empDisabledDuration = 10;
 
