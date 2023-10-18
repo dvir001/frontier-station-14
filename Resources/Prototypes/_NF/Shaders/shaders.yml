@@ -1,0 +1,7 @@
+- type: shader
+  id: Ion
+  kind: source
+  path: "/Textures/_NF/Shaders/ion.swsl"
+  params:
+    positionInput: 0,0
+    life: 0

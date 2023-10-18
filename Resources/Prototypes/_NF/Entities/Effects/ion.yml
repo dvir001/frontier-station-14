@@ -1,0 +1,14 @@
+- type: entity
+  name: ion pulse
+  id: IonPulse
+#  noSpawn: true
+  description: Looking at this anomaly makes you feel an electric tingling all over your body.
+  components:
+  - type: IonSource
+    intensity: 5
+  - type: TimedDespawn
+    lifetime: 2
+  - type: EmitSoundOnSpawn
+    sound: 
+      path: /Audio/Effects/Lightning/lightningbolt.ogg
+  - type: IonPulse
