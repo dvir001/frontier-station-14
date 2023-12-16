@@ -27,5 +27,17 @@ namespace Content.Server.Chemistry.Components
 
         [ViewVariables(VVAccess.ReadWrite)]
         public ReagentDispenserDispenseAmount DispenseAmount = ReagentDispenserDispenseAmount.U10;
+
+        [DataField("startingAmount")]
+        public int StartingAmount = 100;
+
+        [DataField("availableAmount")]
+        public int AvailableAmount = 100;
+
+        [DataField("maxAmount")]
+        public int NaxAmount = 1500;
+
+        [DataField("restockAmount")]
+        public int RestockAmount = 500;
     }
 }

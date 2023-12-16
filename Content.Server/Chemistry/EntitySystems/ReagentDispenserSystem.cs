@@ -124,6 +124,11 @@ namespace Content.Server.Chemistry.EntitySystems
             if (outputContainer is not {Valid: true} || !_solutionContainerSystem.TryGetFitsInDispenser(outputContainer.Value, out var solution))
                 return;
 
+            if (reagentDispenser.Comp.AvailableAmount >= (int) reagentDispenser.Comp.DispenseAmount)
+                reagentDispenser.Comp.AvailableAmount -= (int) reagentDispenser.Comp.DispenseAmount;
+            else
+                return;
+
             if (_solutionContainerSystem.TryAddReagent(outputContainer.Value, solution, message.ReagentId, (int)reagentDispenser.Comp.DispenseAmount, out var dispensedAmount)
                 && message.Session.AttachedEntity is not null)
             {
