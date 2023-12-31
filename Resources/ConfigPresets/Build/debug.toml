@@ -1,4 +1,13 @@
-﻿[events]
+﻿[game]
+desc             = "A ship-based fork focused on RP, player economy, and proceduraly generated worlds. Join a crew or purchase your own ship to explore, salvage, mine, expirement, or trade your way to riches!"
+lobbyenabled     = true
+soft_max_players = 64
+panic_bunker.enabled = true
+panic_bunker.disable_with_admins = true
+panic_bunker.enable_without_admins = true
+panic_bunker.show_reason = true
+
+[events]
 # Annoying
 enabled = false
 
