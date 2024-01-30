@@ -1,8 +1,8 @@
 - type: entity
-  name: handheld mass scanner
+  name: handheld wireless camera monitor
   parent: [ BaseItem, PowerCellSlotSmallItem]
-  id: HandHeldMassScanner
-  description: A hand-held mass scanner.
+  id: HandHeldWirelessCameraMonitor
+  description: A hand-held wireless camera monitor.
   components:
   - type: Item
     size: 10
@@ -23,18 +23,27 @@
           True: { visible: true }
           False: { visible: false }
   - type: PowerCellDraw
-    drawRate: 3
-    useRate: 100
+    drawRate: 0
+    useRate: 20
   - type: ActivatableUIRequiresPowerCell
   - type: ActivatableUI
-    key: enum.RadarConsoleUiKey.Key
-    inHandsOnly: true
-    singleUser: true
+    key: enum.SurveillanceCameraMonitorUiKey.Key
+    closeOnHandDeselect: false
   - type: UserInterface
     interfaces:
-      - key: enum.RadarConsoleUiKey.Key
-        type: RadarConsoleBoundUserInterface
-  - type: RadarConsole
-    maxRange: 64
+      - key: enum.SurveillanceCameraMonitorUiKey.Key
+        type: SurveillanceCameraMonitorBoundUserInterface
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: SurveillanceCamera
+    transmitFrequencyId: SurveillanceCamera
+#  - type: WirelessNetworkConnection
+#    range: 200
+  - type: Speech
+    speechVerb: Robotic
+  - type: SurveillanceCameraSpeaker
+  - type: SurveillanceCameraMonitor
+    speechEnabled: true
+  - type: DeviceNetworkRequiresPower
   - type: StaticPrice
     price: 200
