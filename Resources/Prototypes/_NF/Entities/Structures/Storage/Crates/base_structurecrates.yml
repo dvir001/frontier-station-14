@@ -5,6 +5,7 @@
   components:
   - type: TradeCrate
   - type: Lock
+    immuneToEmag: true
   - type: AccessReader
     access: [[""]]
   - type: Icon
