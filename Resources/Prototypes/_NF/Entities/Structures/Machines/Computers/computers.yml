@@ -51,16 +51,6 @@
   - type: EmitSoundOnUIOpen
     sound:
       collection: Keyboard
-  - type: ShipyardConsole
-    targetIdSlot:
-      name: id-card-console-target-id
-      ejectSound: /Audio/Machines/id_swipe.ogg
-      insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
-      ejectOnBreak: true
-      swap: true
-      whitelist:
-        components:
-        - IdCard
   - type: ActivatableUI
     singleUser: true
     key: enum.ShipyardConsoleUiKey.Shipyard
@@ -72,34 +62,25 @@
   - type: ContainerContainer
     containers:
       ShipyardConsole-targetId: !type:ContainerSlot {}
+  - type: IntrinsicRadioReceiver
+  - type: ShipyardConsole
+    targetIdSlot:
+      name: id-card-console-target-id
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+      ejectOnBreak: true
+      swap: true
+      whitelist:
+        components:
+        - IdCard
+    shipyardChannel: Traffic
+  - type: ActiveRadio
+    channels:
+    - Traffic
 
 # Hardcoded consoles
 - type: entity
-  id: ComputerShipyardSecurity
-  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, ComputerShipyard]
-  name: security shipyard console
-  description: Used to enlist into Nanotrasen Security Forces
-  components:
-  - type: Sprite
-    sprite: _NF/Structures/Machines/computers.rsi
-    layers:
-    - map: ["computerLayerBody"]
-      state: computer
-    - map: ["computerLayerKeyboard"]
-      state: generic_keyboard
-    - map: ["computerLayerScreen"]
-      state: shipyard_security
-    - map: ["computerLayerKeys"]
-      state: telesci_key
-  - type: ActivatableUI
-    key: enum.ShipyardConsoleUiKey.Security
-  - type: UserInterface
-    interfaces:
-    - key: enum.ShipyardConsoleUiKey.Security
-      type: ShipyardConsoleBoundUserInterface
-
-- type: entity
-  id: ComputerShipyardNFSD
+  id: ComputerShipyardNfsd
   parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, ComputerShipyard]
   name: nfsd shipyard console
   description: Used to buy nfsd patrol vessels
@@ -113,6 +94,34 @@
       state: generic_keyboard
     - map: ["computerLayerScreen"]
       state: shipyard_nfsd
+    - map: ["computerLayerKeys"]
+      state: telesci_key
+  - type: ActivatableUI
+    key: enum.ShipyardConsoleUiKey.Security
+  - type: UserInterface
+    interfaces:
+    - key: enum.ShipyardConsoleUiKey.Security
+      type: ShipyardConsoleBoundUserInterface
+    shipyardChannel: Nfsd
+  - type: ActiveRadio
+    channels:
+    - Nfsd
+
+- type: entity
+  id: ComputerShipyardSecurity
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, ComputerShipyardNfsd]
+  name: security shipyard console
+  description: Used to enlist into Nanotrasen Security Forces
+  components:
+  - type: Sprite
+    sprite: _NF/Structures/Machines/computers.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: shipyard_security
     - map: ["computerLayerKeys"]
       state: telesci_key
   - type: ActivatableUI
@@ -145,6 +154,12 @@
       state: shipyard_blackmarket
     - map: ["computerLayerKeys"]
       state: blackmarket_key
+    shipyardChannel: Nfsd
+    shipyardSecretChannel: Freelance
+  - type: ActiveRadio
+    channels:
+    - Nfsd
+    - Freelance
 
 - type: entity
   id: ComputerShipyardExpedition
