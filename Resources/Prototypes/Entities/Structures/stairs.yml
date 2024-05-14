@@ -35,6 +35,27 @@
             max: 4
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+  - type: StepTrigger  # Frontier
+    requiredTriggeredSpeed: 0
+    intersectRatio: 0.1
+  - type: Stairs # Frontier
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        layer:
+          - SlipLayer
+        mask:
+          - ItemMask
+        density: 1000
+        hard: false
+  - type: Tag
+    tags:
+      - HideContextMenu
 
 - type: entity
   id: StairStage
