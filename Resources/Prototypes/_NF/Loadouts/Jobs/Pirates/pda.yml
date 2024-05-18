@@ -1,0 +1,9 @@
+- type: loadout
+  id: PiratePiratePDA
+  equipment: PiratePiratePDA
+
+- type: startingGear
+  id: PiratePiratePDA
+  equipment:
+    id: PiratePDA
+    

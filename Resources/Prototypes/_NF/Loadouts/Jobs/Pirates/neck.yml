@@ -1,0 +1,9 @@
+#T0
+- type: loadout
+  id: PirateClothingNeckMantlePirate
+  equipment: PirateClothingNeckMantlePirate
+
+- type: startingGear
+  id: PirateClothingNeckMantlePirate
+  equipment:
+    neck: ClothingNeckMantlePirate

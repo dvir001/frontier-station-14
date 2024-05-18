@@ -1,0 +1,67 @@
+- type: loadoutGroup
+  id: PirateJumpsuit
+  name: loadout-group-contractor-jumpsuit
+  loadouts:
+  - PirateClothingUniformJumpsuitPirate
+  - PirateClothingUniformJumpskirtPirate
+
+- type: loadoutGroup
+  id: PirateBackpack
+  name: loadout-group-contractor-backpack
+  loadouts:
+  - PirateClothingBackpackPirateFilled
+  - PirateClothingBackpackDuffelPirateFilled
+  - PirateClothingBackpackSatchelPirateFilled
+  - PirateClothingBackpackMessengerFilled
+  
+- type: loadoutGroup
+  id: PirateOuterClothing
+  name: loadout-group-contractor-outerclothing
+  minLimit: 0
+  loadouts:
+  - PirateOuterClothing
+
+- type: loadoutGroup
+  id: PirateShoes
+  name: loadout-group-contractor-shoes
+  loadouts:
+  - NfsdClothingShoesBootsBrown
+
+- type: loadoutGroup
+  id: PirateHead
+  name: loadout-group-contractor-head
+  minLimit: 0
+  loadouts:
+  - PirateClothingHeadHatPirate
+  
+- type: loadoutGroup
+  id: PirateGloves
+  name: loadout-group-contractor-gloves
+  loadouts:
+  - PirateClothingHandsGlovesPirate
+
+- type: loadoutGroup
+  id: PirateNeck
+  name: loadout-group-contractor-neck
+  minLimit: 0
+  loadouts:
+  - PirateClothingNeckMantlePirate
+
+- type: loadoutGroup
+  id: PiratePDA
+  name: loadout-group-contractor-id
+  loadouts:
+  - PiratePiratePDA
+  
+- type: loadoutGroup
+  id: PirateGlasses
+  name: loadout-group-contractor-glasses
+  loadouts:
+  - NfsdClothingEyesGlasses
+
+- type: loadoutGroup
+  id: PirateFace
+  name: loadout-group-contractor-face
+  minLimit: 0
+  loadouts:
+  - PirateClothingMaskPirate

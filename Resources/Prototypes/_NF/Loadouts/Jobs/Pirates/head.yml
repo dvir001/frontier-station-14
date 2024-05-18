@@ -1,0 +1,8 @@
+- type: loadout
+  id: PirateClothingHeadHatPirate
+  equipment: PirateClothingHeadHatPirate
+
+- type: startingGear
+  id: PirateClothingHeadHatPirate
+  equipment:
+    head: ClothingHeadHatNfsdCampaignFilled

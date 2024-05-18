@@ -1,0 +1,8 @@
+- type: loadout
+  id: PirateOuterClothing
+  equipment: PirateOuterClothing
+
+- type: startingGear
+  id: PirateOuterClothing
+  equipment:
+    outerClothing: ClothingOuterCoatNfsdFormalPirate

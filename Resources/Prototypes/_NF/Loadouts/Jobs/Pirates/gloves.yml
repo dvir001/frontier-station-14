@@ -1,0 +1,9 @@
+#T0
+- type: loadout
+  id: PirateClothingHandsGlovesPirate
+  equipment: PirateClothingHandsGlovesPirate
+
+- type: startingGear
+  id: PirateClothingHandsGlovesPirate
+  equipment:
+    gloves: ClothingHandsGlovesCombatNfsdCream

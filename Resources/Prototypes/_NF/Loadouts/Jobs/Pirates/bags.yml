@@ -1,0 +1,35 @@
+- type: loadout
+  id: PirateClothingBackpackPirateFilled
+  equipment: PirateClothingBackpackPirateFilled
+
+- type: startingGear
+  id: PirateClothingBackpackPirateFilled
+  equipment:
+    back: ClothingBackpackNfsdBrownPirateFilled
+
+- type: loadout
+  id: PirateClothingBackpackDuffelPirateFilled
+  equipment: PirateClothingBackpackDuffelPirateFilled
+
+- type: startingGear
+  id: PirateClothingBackpackDuffelPirateFilled
+  equipment:
+    back: ClothingBackpackDuffelNfsdBrownPirateFilled
+
+- type: loadout
+  id: PirateClothingBackpackSatchelPirateFilled
+  equipment: PirateClothingBackpackSatchelPirateFilled
+
+- type: startingGear
+  id: PirateClothingBackpackSatchelPirateFilled
+  equipment:
+    back: ClothingBackpackSatchelNfsdBrownPirateFilled
+
+- type: loadout
+  id: PirateClothingBackpackMessengerFilled
+  equipment: PirateClothingBackpackMessengerFilled
+
+- type: startingGear
+  id: PirateClothingBackpackMessengerFilled
+  equipment:
+    back: ClothingBackpackMessengerNfsdBrownPirateFilled

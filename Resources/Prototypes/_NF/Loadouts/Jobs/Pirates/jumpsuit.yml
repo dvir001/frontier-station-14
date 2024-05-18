@@ -1,0 +1,17 @@
+- type: loadout
+  id: PirateClothingUniformJumpsuitPirate
+  equipment: PirateClothingUniformJumpsuitPirate
+
+- type: startingGear
+  id: PirateClothingUniformJumpsuitPirate
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitPirate
+
+- type: loadout
+  id: PirateClothingUniformJumpskirtPirate
+  equipment: PirateClothingUniformJumpskirtPirate
+
+- type: startingGear
+  id: PirateClothingUniformJumpskirtPirate
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtNfsd

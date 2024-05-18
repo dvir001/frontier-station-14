@@ -6,7 +6,7 @@
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 86400 # Frontier - 24 hours
-  startingGear: NFPirateGear
+  startingGear: PirateNFGear
   alwaysUseSpawner: true
   hideConsoleVisibility: true
   canBeAntag: true
@@ -23,7 +23,7 @@
     implants: [ FreelanceTrackingImplant ]
 
 - type: startingGear
-  id: NFPirateGear
+  id: PirateNFGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitPirate
     back: ClothingBackpackPirateFilled
