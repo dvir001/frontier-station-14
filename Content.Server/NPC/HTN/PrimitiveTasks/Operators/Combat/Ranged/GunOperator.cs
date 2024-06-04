@@ -5,6 +5,7 @@ using Content.Shared.CombatMode;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Audio;
+using Content.Server._NF.NPC.Components; // Frontier
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.Ranged;
 
@@ -41,8 +42,14 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
         // Don't attack if they're already as wounded as we want them.
         if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager))
         {
+            if (_entManager.HasComponent<NPCAttackOnSightComponent>(target))
+                return (true, null);
+
             return (false, null);
         }
+
+        if (_entManager.HasComponent<NPCAttackOnSightComponent>(target))
+            return (true, null);
 
         if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
             mobState.CurrentState > TargetState)
@@ -90,12 +97,7 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
             combat.Target = target;
 
             // Success
-            if (_entManager.TryGetComponent<MobStateComponent>(combat.Target, out var mobState) &&
-                mobState.CurrentState > TargetState)
-            {
-                status = HTNOperatorStatus.Finished;
-            }
-            else
+            if (_entManager.HasComponent<NPCAttackOnSightComponent>(combat.Target))
             {
                 switch (combat.Status)
                 {
@@ -114,6 +116,35 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
                     default:
                         status = HTNOperatorStatus.Failed;
                         break;
+                }
+            }
+            else
+            {
+                if (_entManager.TryGetComponent<MobStateComponent>(combat.Target, out var mobState) &&
+                mobState.CurrentState > TargetState)
+                {
+                    status = HTNOperatorStatus.Finished;
+                }
+                else
+                {
+                    switch (combat.Status)
+                    {
+                        case CombatStatus.TargetUnreachable:
+                            status = HTNOperatorStatus.Failed;
+                            break;
+                        case CombatStatus.NotInSight:
+                            if (RequireLOS)
+                                status = HTNOperatorStatus.Failed;
+                            else
+                                status = HTNOperatorStatus.Continuing;
+                            break;
+                        case CombatStatus.Normal:
+                            status = HTNOperatorStatus.Continuing;
+                            break;
+                        default:
+                            status = HTNOperatorStatus.Failed;
+                            break;
+                    }
                 }
             }
         }

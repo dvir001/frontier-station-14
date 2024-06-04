@@ -6,6 +6,7 @@ using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Systems;
 using Robust.Shared.Collections;
 using Robust.Shared.Timing;
+using Content.Server._NF.NPC.Components; // Frontier
 
 namespace Content.Server.NPC.Systems;
 
@@ -43,8 +44,15 @@ public sealed class NPCRetaliationSystem : EntitySystem
     public bool TryRetaliate(Entity<NPCRetaliationComponent> ent, EntityUid target)
     {
         // don't retaliate against inanimate objects.
-        if (!HasComp<MobStateComponent>(target))
-            return false;
+        if (HasComp<NPCAttackOnSightComponent>(target))
+        {
+
+        }
+        else
+        {
+            if (!HasComp<MobStateComponent>(target))
+                return false;
+        }
 
         // don't retaliate against the same faction
         if (_npcFaction.IsEntityFriendly(ent.Owner, target))

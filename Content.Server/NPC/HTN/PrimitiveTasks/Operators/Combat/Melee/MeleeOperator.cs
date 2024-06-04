@@ -4,6 +4,7 @@ using Content.Server.NPC.Components;
 using Content.Shared.CombatMode;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Server._NF.NPC.Components; // Frontier
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.Melee;
 
@@ -48,8 +49,14 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
         // Don't attack if they're already as wounded as we want them.
         if (!blackboard.TryGetValue<EntityUid>(TargetKey, out var target, _entManager))
         {
+            if (_entManager.HasComponent<NPCAttackOnSightComponent>(target))
+                return (true, null);
+
             return (false, null);
         }
+
+        if (_entManager.HasComponent<NPCAttackOnSightComponent>(target))
+            return (true, null);
 
         if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
             mobState.CurrentState > TargetState)
@@ -94,12 +101,7 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
             combat.Target = target;
 
             // Success
-            if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
-                mobState.CurrentState > TargetState)
-            {
-                status = HTNOperatorStatus.Finished;
-            }
-            else
+            if (_entManager.HasComponent<NPCAttackOnSightComponent>(target))
             {
                 switch (combat.Status)
                 {
@@ -110,6 +112,27 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
                     default:
                         status = HTNOperatorStatus.Failed;
                         break;
+                }
+            }
+            else
+            {
+                if (_entManager.TryGetComponent<MobStateComponent>(target, out var mobState) &&
+                    mobState.CurrentState > TargetState)
+                {
+                    status = HTNOperatorStatus.Finished;
+                }
+                else
+                {
+                    switch (combat.Status)
+                    {
+                        case CombatStatus.TargetOutOfRange:
+                        case CombatStatus.Normal:
+                            status = HTNOperatorStatus.Continuing;
+                            break;
+                        default:
+                            status = HTNOperatorStatus.Failed;
+                            break;
+                    }
                 }
             }
         }
