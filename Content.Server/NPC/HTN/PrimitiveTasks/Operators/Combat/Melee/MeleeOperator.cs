@@ -4,6 +4,7 @@ using Content.Server.NPC.Components;
 using Content.Shared.CombatMode;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Climbing.Components; // Frontier
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat.Melee;
 
@@ -98,6 +99,7 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
                 mobState.CurrentState > TargetState)
             {
                 status = HTNOperatorStatus.Finished;
+                _entManager.RemoveComponentDeferred<ClimbingComponent>(owner); // Frontier
             }
             else
             {
@@ -106,9 +108,12 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
                     case CombatStatus.TargetOutOfRange:
                     case CombatStatus.Normal:
                         status = HTNOperatorStatus.Continuing;
+                        var comp = _entManager.EnsureComponent<ClimbingComponent>(owner); // Frontier
+                        comp.TransitionRate = 0.0f; // Frontier
                         break;
                     default:
                         status = HTNOperatorStatus.Failed;
+                        _entManager.RemoveComponentDeferred<ClimbingComponent>(owner); // Frontier
                         break;
                 }
             }
@@ -116,12 +121,14 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
         else
         {
             status = HTNOperatorStatus.Failed;
+            _entManager.RemoveComponentDeferred<ClimbingComponent>(owner); // Frontier
         }
 
         // Mark it as finished to continue the plan.
         if (status == HTNOperatorStatus.Continuing && ShutdownState == HTNPlanState.PlanFinished)
         {
             status = HTNOperatorStatus.Finished;
+            _entManager.RemoveComponentDeferred<ClimbingComponent>(owner); // Frontier
         }
 
         return status;
