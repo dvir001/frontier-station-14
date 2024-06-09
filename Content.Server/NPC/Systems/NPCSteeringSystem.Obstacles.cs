@@ -207,6 +207,22 @@ public sealed partial class NPCSteeringSystem
             return;
         }
 
+        //var xform = Transform(poly.GraphUid);
+        //var children = xform.ChildEnumerator;
+
+        //while (children.MoveNext(out var ent))
+        //{
+        //    if (!_physicsQuery.TryGetComponent(ent, out var body) ||
+        //        !body.Hard ||
+        //        !body.CanCollide ||
+        //        (body.CollisionMask & layer) == 0x0 && (body.CollisionLayer & mask) == 0x0)
+        //    {
+        //        continue;
+        //    }
+
+        //    ents.Add(ent);
+        //}
+
         foreach (var ent in grid.GetLocalAnchoredEntities(poly.Box))
         {
             if (!_physicsQuery.TryGetComponent(ent, out var body) ||
