@@ -13,16 +13,20 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Systems;
+using Content.Shared.Clothing;
+using Content.Shared.Clothing.Components;
+using Content.Shared.Movement.Components;
+using Content.Shared.Inventory.Events;
 
-namespace Content.Server.Tiles;
+namespace Content.Server._NF.Tiles;
 
-public sealed class StairsSystem : EntitySystem
+public sealed class UnevenTarainSystem : EntitySystem
 {
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<StairsComponent, StepTriggeredOffEvent>(OnStairsStepTriggered);
-        SubscribeLocalEvent<StairsComponent, StepTriggerAttemptEvent>(OnStairsStepTriggerAttempt);
+        SubscribeLocalEvent<UnevenTarainComponent, StepTriggeredOffEvent>(OnUnevenTarainStepTriggered);
+        SubscribeLocalEvent<UnevenTarainComponent, StepTriggerAttemptEvent>(OnUnevenTarainStepTriggerAttempt);
     }
 
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
@@ -33,7 +37,7 @@ public sealed class StairsSystem : EntitySystem
     [Dependency] private readonly SharedBuckleSystem _buckle = default!;
     [Dependency] private readonly SlipperySystem _slip = default!;
 
-    private void OnStairsStepTriggerAttempt(EntityUid uid, StairsComponent component, ref StepTriggerAttemptEvent args)
+    private void OnUnevenTarainStepTriggerAttempt(EntityUid uid, UnevenTarainComponent component, ref StepTriggerAttemptEvent args)
     {
         //if (HasComp<ClumsyComponent>(args.Tripper))
         //    args.Continue = true;
@@ -47,7 +51,7 @@ public sealed class StairsSystem : EntitySystem
         args.Continue = true;
     }
 
-    private void OnStairsStepTriggered(EntityUid uid, StairsComponent component, ref StepTriggeredOffEvent args)
+    private void OnUnevenTarainStepTriggered(EntityUid uid, UnevenTarainComponent component, ref StepTriggeredOffEvent args)
     {
         var otherUid = args.Tripper;
 

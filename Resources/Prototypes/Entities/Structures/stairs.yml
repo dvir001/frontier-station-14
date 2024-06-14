@@ -38,7 +38,7 @@
   - type: StepTrigger  # Frontier
     requiredTriggeredSpeed: 0
     intersectRatio: 0.1
-  - type: Stairs # Frontier
+  - type: UnevenTarain # Frontier
   - type: Physics
     bodyType: Static
   - type: Fixtures
