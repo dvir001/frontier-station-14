@@ -1,5 +1,5 @@
 - type: entity
-  parent: [BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyard]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyard]
   id: ComputerTabletopShipyard
   components:
   - type: Sprite
@@ -19,9 +19,8 @@
       state: telesci_key
 
 - type: entity
-  parent: [BaseStructureIndestructible, BaseStructureComputerTabletop, BaseMothershipComputer]
-  id: BaseMothershipComputerTabletop
-  abstract: true
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseStructureComputerTabletop, BaseMothershipComputer]
+  id: SellOnlyMothershipComputerTabletop
   components:
   - type: Sprite
     drawdepth: SmallObjects
@@ -40,7 +39,7 @@
       state: telesci_key
 
 - type: entity
-  parent: [BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardSecurity]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardSecurity]
   id: ComputerTabletopShipyardSecurity
   components:
   - type: Sprite
@@ -60,7 +59,7 @@
       state: telesci_key
 
 - type: entity
-  parent: [BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardNfsd]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardNfsd]
   id: ComputerTabletopShipyardNfsd
   components:
   - type: Sprite
@@ -80,7 +79,7 @@
       state: telesci_key
 
 - type: entity
-  parent: [BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardBlackMarket]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardBlackMarket]
   id: ComputerTabletopShipyardBlackMarket
   components:
   - type: Sprite
@@ -100,7 +99,7 @@
       state: blackmarket_key
 
 - type: entity
-  parent: [BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardExpedition]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardExpedition]
   id: ComputerTabletopShipyardExpedition
   components:
   - type: Sprite
@@ -120,7 +119,7 @@
       state: blackmarket_key
 
 - type: entity
-  parent: [BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardScrap]
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseStructureComputerTabletop, ComputerShipyardScrap]
   id: ComputerTabletopShipyardScrap
   components:
   - type: Sprite
