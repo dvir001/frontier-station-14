@@ -1,0 +1,38 @@
+- type: entity
+  id: MachineIceCream
+  parent: BaseTabletopChemicalMachine
+  name: icecream machine
+  description: I scream.
+  components:
+  - type: SolutionContainerMixer
+    mixDuration: 3.5
+    mixingSound:
+      path: /Audio/Machines/buzz_loop.ogg
+      params:
+        volume: -5
+  - type: ReactionMixer
+    reactionTypes:
+    - Electrolysis
+  - type: Sprite
+    sprite: _NF/Structures/Machines/icecream.rsi
+    offset: "0.0,0.0"
+    layers:
+    - state: base
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+    - state: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+      shader: unshaded
+  - type: GenericVisualizer
+    visuals:
+      enum.SolutionContainerMixerVisuals.Mixing:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: {state: "spinning"}
+          False: {state: "unshaded"}
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: True }
+          False: { visible: False }
+  - type: Machine
+    board: Null #ElectrolysisUnitMachineCircuitboard
