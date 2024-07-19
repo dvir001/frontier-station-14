@@ -112,6 +112,25 @@
           prob: 0.03
         - id: AsteroidRockSalvageNFHuge
           prob: 0.03
+        - id: MeteorNFLarge
+          prob: 0.01
+        - id: MeteorNFMedium
+          prob: 0.03
+        - id: MeteorNFSmall
+          prob: 0.6
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
+        - id: MeteorNFSpaceDust
     - type: NoiseDrivenDebrisSelector
       noiseChannel: Wreck
       debrisTable:

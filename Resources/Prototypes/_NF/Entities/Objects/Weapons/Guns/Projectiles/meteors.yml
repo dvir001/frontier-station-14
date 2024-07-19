@@ -1,5 +1,5 @@
 - type: entity
-  id: BaseMeteor
+  id: BaseMeteorNF
   name: meteor
   description: You prefer them when they're burning up in the atmosphere.
   abstract: true
@@ -14,8 +14,6 @@
     damageTypes:
       types:
         Blunt: 1
-  - type: TimedDespawn
-    lifetime: 120
   - type: Clickable
   - type: Physics
     bodyType: Dynamic
@@ -43,11 +41,10 @@
     maxIntensity: 100
 
 - type: entity
-  parent: BaseMeteor
-  id: MeteorSpaceDust
+  parent: BaseMeteorNF
+  id: MeteorNFSpaceDust
   name: space dust
   description: Makes a station sneeze.
-  noSpawn: true # Frontier
   components:
   - type: Sprite
     state: space_dust
@@ -80,10 +77,9 @@
       - !type:ExplodeBehavior
 
 - type: entity
-  parent: BaseMeteor
-  id: MeteorSmall
+  parent: BaseMeteorNF
+  id: MeteorNFSmall
   suffix: Small
-  noSpawn: true # Frontier
   components:
   - type: Sprite
     state: small
@@ -116,10 +112,9 @@
       - !type:ExplodeBehavior
 
 - type: entity
-  parent: BaseMeteor
-  id: MeteorMedium
+  parent: BaseMeteorNF
+  id: MeteorNFMedium
   suffix: Medium
-  noSpawn: true # Frontier
   components:
   - type: Sprite
     state: medium
@@ -152,10 +147,9 @@
       - !type:ExplodeBehavior
 
 - type: entity
-  parent: BaseMeteor
-  id: MeteorLarge
+  parent: BaseMeteorNF
+  id: MeteorNFLarge
   suffix: Large
-  noSpawn: true # Frontier
   components:
   - type: Sprite
     state: big
@@ -172,39 +166,4 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
-      - !type:ExplodeBehavior
-
-- type: entity
-  parent: BaseMeteor
-  id: MeteorUrist
-  name: Urist McMeteor
-  description: As a successful member of society with a stable unflinching psyche and limitless drive, natural affinity for finance and domination, you have been selected, no, you have been effortlessly guided by divine (biological) trauma towards this moment. The gates of destiny fling open, and once again you're left standing on pulsating nothingness. A strobing headache of the soul.
-  suffix: Meteor
-  components:
-  - type: Sprite
-    state: human_pixel
-  - type: SolutionContainerManager
-    solutions:
-      blood:
-        maxVol: 1000
-        reagents:
-        - ReagentId: Blood
-          Quantity: 1000
-  - type: Explosive
-    totalIntensity: 25
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 3000
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MaleScreams
-          params:
-            volume: 10
-      - !type:SpillBehavior
-        solution: blood
       - !type:ExplodeBehavior
