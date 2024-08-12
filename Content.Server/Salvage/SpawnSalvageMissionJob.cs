@@ -37,6 +37,8 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Content.Server.Shuttles.Components;
 using Content.Shared.Coordinates;
+using Content.Server.GameTicking.Rules.Components;
+using Content.Server.GameTicking.Rules.VariationPass.Components;
 
 namespace Content.Server.Salvage;
 
@@ -380,6 +382,14 @@ public sealed class SpawnSalvageMissionJob : Job<bool>
         var structureCount = _salvage.GetStructureCount(mission.Difficulty);
         var shaggy = faction.Configs["DefenseStructure"];
         var validSpawns = new List<Vector2i>();
+
+        //_entManager.EnsureComponent<GameRuleComponent>(gridUid); // Frontier
+        _entManager.EnsureComponent<StationVariationPassRuleComponent>(gridUid); // Frontier
+
+        var trash = _entManager.EnsureComponent<EntitySpawnVariationPassComponent>(gridUid); // Frontier
+        trash.TilesPerEntityAverage = 5;
+        trash.TilesPerEntityStdDev = 3;
+        trash.Entities = "RandomSpawner";
 
         // Spawn the objectives
         for (var i = 0; i < structureCount; i++)
