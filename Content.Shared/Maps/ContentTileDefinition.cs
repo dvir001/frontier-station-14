@@ -121,5 +121,10 @@ namespace Content.Shared.Maps
         {
             TileId = id;
         }
+
+        /// <summary>
+        /// Frontier - Hide the tile under diagonal walls
+        /// </summary>
+        [DataField] public bool HideUnderDiagonal = false;
     }
 }

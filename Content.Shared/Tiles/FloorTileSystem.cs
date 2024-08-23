@@ -19,6 +19,7 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Shared.Serialization; // Frontier
 
 namespace Content.Shared.Tiles;
 
@@ -194,5 +195,14 @@ public sealed class FloorTileSystem : EntitySystem
 
         reason = null;
         return true;
+    }
+
+    [Serializable, NetSerializable] // Frontier
+    public enum SubFloorVisuals : byte
+    {
+        /// <summary>
+        /// Is there a wall over this entity
+        /// </summary>
+        Covered
     }
 }
