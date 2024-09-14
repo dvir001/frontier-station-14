@@ -6,6 +6,10 @@
   category: Small
   group: Scrap
   shuttlePath: /Maps/_NF/Shuttles/Scrap/point.yml
+  guidebookPage: Null
+  class:
+  - Scrapyard
+  - Science
 
 - type: gameMap
   id: Point
@@ -22,7 +26,6 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs:
             Contractor: [ 0, 0 ]
             Pilot: [ 0, 0 ]

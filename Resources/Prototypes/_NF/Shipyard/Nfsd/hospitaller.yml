@@ -5,7 +5,11 @@
   price: 28220
   category: Small
   group: Security
+  access: Security
   shuttlePath: /Maps/_NF/Shuttles/Nfsd/hospitaller.yml
+  guidebookPage: Null
+  class:
+  - Medical
 
 - type: gameMap
   id: Hospitaller
@@ -22,5 +26,4 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs: {}

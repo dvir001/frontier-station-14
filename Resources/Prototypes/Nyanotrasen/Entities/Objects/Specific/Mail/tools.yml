@@ -22,5 +22,9 @@
     whitelist:
       components:
         - Mail
+        - Envelope
+      tags: # Frontier
+        - MailCapsule # Frontier
+        - Paper
+        - Book
   - type: MagnetPickup # Frontier
-  

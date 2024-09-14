@@ -1,6 +1,7 @@
 using Content.Server.Electrocution;
 using Content.Server.Power.Components;
 using Content.Server.Wires;
+using Content.Shared.Emp; // Frontier: Upstream - #28984
 using Content.Shared.Power;
 using Content.Shared.Wires;
 
@@ -74,6 +75,11 @@ public sealed partial class PowerWireAction : BaseWireAction
         {
             if (WiresSystem.TryGetData<bool>(owner, PowerWireActionKey.Pulsed, out var isPulsed)
                 && isPulsed)
+            {
+                return;
+            }
+
+            if (EntityManager.HasComponent<EmpDisabledComponent>(owner)) // Frontier: Upstream - #28984
             {
                 return;
             }
@@ -159,7 +165,7 @@ public sealed partial class PowerWireAction : BaseWireAction
     {
         base.Initialize();
 
-        _electrocutionSystem = EntitySystem.Get<ElectrocutionSystem>();
+        _electrocutionSystem = EntityManager.System<ElectrocutionSystem>();
     }
 
     // This should add a wire into the entity's state, whether it be

@@ -1,6 +1,6 @@
 - type: entity
   id: BodyBag
-  parent: BaseFoldable
+  parent: BaseDeployFoldable
   name: body bag
   description: A plastic bag designed for the storage and transportation of cadavers to stop body decomposition.
   components:
@@ -154,6 +154,6 @@
               Quantity: 25
             - ReagentId: Necrosol
               Quantity: 25
-    - type: GuideHelp
-      guides:
-      - MinorAntagonists
+    # - type: GuideHelp # Frontier: removed from guidebook
+    #   guides: # Frontier: removed from guidebook
+    #   - MinorAntagonists # Frontier: removed from guidebook

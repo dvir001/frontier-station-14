@@ -16,6 +16,9 @@
   category: Small
   group: Expedition
   shuttlePath: /Maps/_NF/Shuttles/Expedition/pathfinder.yml
+  guidebookPage: ShipyardPathfinder
+  class:
+  - Expedition
   
 - type: gameMap
   id: Pathfinder
@@ -32,7 +35,6 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs:
             Contractor: [ 0, 0 ]
             Pilot: [ 0, 0 ]

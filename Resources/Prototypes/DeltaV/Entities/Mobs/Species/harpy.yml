@@ -19,6 +19,10 @@
       "Acoustic": {24: 0}
       "Flute": {73: 0}
       "Sax": {66: 0}
+      "Piano": {1: 0}
+      "Church Organ": {19: 0}
+      "Harp": {46: 0}
+    onlySetBySelf: true
   - type: UserInterface
     interfaces:
       enum.InstrumentUiKey.Key:
@@ -108,6 +112,10 @@
   - type: Speech
     speechSounds: Harpy
     speechVerb: Harpy
+    # New Frontiers - Expand Harpy Mimicry - includes all harpy sound collections
+    #   as accepted emotes, adds 
+    # This code is licensed under AGPLv3. See LICENSE
+    mimicEmotes: true # Frontier
     allowedEmotes:
     - Squish
     - Chitter
@@ -117,6 +125,24 @@
     - Bang
     - Rev
     - Caw
+    - Sneeze # Frontier
+    - Cough # Frontier
+    - Hiss # Frontier
+    - Meow # Frontier
+    - Mew # Frontier
+    - Growl # Frontier
+    - Purr # Frontier
+    - Beep # Frontier
+    - Squeak # Frontier
+    - Chirp # Frontier
+    - Snarl # Frontier
+    - Bark # Frontier
+    - Whine # Frontier
+    - Howl # Frontier
+    - Awoo # Frontier
+    - Honk # Frontier
+    - Belch # Frontier
+    # End of modified code
   - type: Vocal
     sounds:
       Male: SoundsHarpy
@@ -139,7 +165,7 @@
   name: Urist McHands
   parent: MobHumanDummy
   id: MobHarpyDummy
-  noSpawn: true
+  categories: [ HideSpawnMenu ]
   description: A dummy Harpy meant to be used in character setup.
   components:
   - type: HumanoidAppearance
@@ -193,7 +219,7 @@
   id: ActionHarpyPlayMidi
   name: Play MIDI
   description: Sing your heart out! Right click yourself to set an instrument.
-  noSpawn: true
+  categories: [ HideSpawnMenu ]
   components:
   - type: InstantAction
     checkCanInteract: false
@@ -205,7 +231,7 @@
   id: ActionSyrinxChangeVoiceMask
   name: Set name
   description: Change the name others hear to something else.
-  noSpawn: true
+  categories: [ HideSpawnMenu ]
   components:
   - type: InstantAction
     icon: DeltaV/Interface/Actions/harpy_syrinx.png

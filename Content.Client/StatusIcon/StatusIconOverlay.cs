@@ -39,13 +39,13 @@ public sealed class StatusIconOverlay : Overlay
         var eyeRot = args.Viewport.Eye?.Rotation ?? default;
 
         var xformQuery = _entity.GetEntityQuery<TransformComponent>();
-        var scaleMatrix = Matrix3.CreateScale(new Vector2(1, 1));
-        var rotationMatrix = Matrix3.CreateRotation(-eyeRot);
+        var scaleMatrix = Matrix3Helpers.CreateScale(new Vector2(1, 1));
+        var rotationMatrix = Matrix3Helpers.CreateRotation(-eyeRot);
 
         var query = _entity.AllEntityQueryEnumerator<StatusIconComponent, SpriteComponent, TransformComponent, MetaDataComponent>();
         while (query.MoveNext(out var uid, out var comp, out var sprite, out var xform, out var meta))
         {
-            if (xform.MapID != args.MapId)
+            if (xform.MapID != args.MapId || !sprite.Visible)
                 continue;
 
             var bounds = comp.Bounds ?? sprite.Bounds;
@@ -59,19 +59,21 @@ public sealed class StatusIconOverlay : Overlay
             if (icons.Count == 0)
                 continue;
 
-            var worldMatrix = Matrix3.CreateTranslation(worldPos);
-            Matrix3.Multiply(scaleMatrix, worldMatrix, out var scaledWorld);
-            Matrix3.Multiply(rotationMatrix, scaledWorld, out var matty);
+            var worldMatrix = Matrix3Helpers.CreateTranslation(worldPos);
+            var scaledWorld = Matrix3x2.Multiply(scaleMatrix, worldMatrix);
+            var matty = Matrix3x2.Multiply(rotationMatrix, scaledWorld);
             handle.SetTransform(matty);
 
             var countL = 0;
             var countR = 0;
-            var accOffsetL = 0;
+            var accOffsetL = 8; // Frontier: 0<8 - do not overlap the speech bubble
             var accOffsetR = 0;
             icons.Sort();
 
             foreach (var proto in icons)
             {
+                if (!_statusIcon.IsVisible((uid, meta), proto))
+                    continue;
 
                 var curTime = _timing.RealTime;
                 var texture = _sprite.GetFrame(proto.Icon, curTime);

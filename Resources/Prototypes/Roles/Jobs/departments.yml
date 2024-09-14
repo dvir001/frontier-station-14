@@ -1,15 +1,18 @@
 - type: department
   id: Cargo
+  name: department-Cargo
   description: department-Cargo-description
   color: "#A46106"
   weight: -90
   primary: false
+  editorHidden: true # Frontier
 
 - type: department
   id: Civilian
+  name: department-Civilian
   description: department-Civilian-description
   color: "#9FED58"
-  weight: -10
+  weight: 0 # Frontier: -10<0 accounted for in jobs
   roles:
   - Bartender
   - Borg
@@ -42,10 +45,10 @@
   - Quartermaster # Frontier
   - CargoTechnician # Frontier
   - SalvageSpecialist # Frontier
-  enabled: true
 
 - type: department
   id: Command
+  name: department-Command
   description: department-Command-description
   color: "#334E6D"
   roles:
@@ -57,28 +60,32 @@
   - Sheriff  # Frontier
   - StationTrafficController # Frontier
   primary: false
-  weight: 100
-  enabled: true
+  weight: 2 # Frontier: 100<2 - accounted for in jobs
 
 - type: department
   id: Engineering
+  name: department-Engineering
   description: department-Engineering-description
   color: "#EFB341"
   weight: -94
   primary: false
+  editorHidden: true # Frontier
 
 - type: department
   id: Medical
+  name: department-Medical
   description: department-Medical-description
   color: "#52B4E9"
   weight: -93
   primary: false
+  editorHidden: true # Frontier
 
 - type: department
   id: Security
+  name: department-Security
   description: department-Security-description
-  color: "#DE3A3A"
-  weight: 20
+  color: "#5C7D4D" # Frontier: DE3A3A<5C7D4D
+  weight: 1 # Frontier: 20<1 - accounted for in jobs
   roles:
   - Detective # Frontier - No Longer Usable
   - HeadOfSecurity # Frontier - No Longer Usable
@@ -94,30 +101,22 @@
   - Bailiff # Frontier
   - Sheriff # Frontier
   - SeniorOfficer # Frontier
-  enabled: true
+  - PublicAffairsLiaison # Frontier
 
 - type: department
   id: Science
+  name: department-Science
   description: department-Science-description
   color: "#D381C9"
   weight: -92
   primary: false
+  editorHidden: true # Frontier
 
 - type: department
   id: Specific
+  name: department-Specific
   description: department-Specific-description
   color: "#9FED58"
   weight: -91
   primary: false
-
-- type: department
-  id: Antag
-  description: department-Security-description
-  color: "#DE3A3A"
-  weight: -11
-  roles:
-  - PirateCaptain
-  - PirateFirstMate
-  - Pirate
-  - Prisoner ##nyano
-  enabled: true
+  editorHidden: true # Frontier

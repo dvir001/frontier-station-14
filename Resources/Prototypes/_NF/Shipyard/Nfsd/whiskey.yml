@@ -5,7 +5,11 @@
 #  price: 55000
 #  category: Medium
 #  group: Security
+#  access: Bailiff
 #  shuttlePath: /Maps/_NF/Shuttles/Nfsd/whiskey.yml
+#  guidebookPage: Null
+#  class:
+#  - Medical
 
 # - type: gameMap
 #  id: Whiskey
@@ -22,5 +26,4 @@
 #            !type:NanotrasenNameGenerator
 #            prefixCreator: '14'
 #        - type: StationJobs
-#          overflowJobs: []
 #          availableJobs: {}

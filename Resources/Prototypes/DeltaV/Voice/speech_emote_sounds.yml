@@ -34,12 +34,18 @@
       collection: HarpyPews
     Bang:
       collection: HarpyBangs
+      params: # Frontier
+        volume: -5 # Frontier
     Beep:
       collection: HarpyBeeps
     Rev:
       collection: HarpyRevs
-#    Click:
-#      collection: HarpyClicks
+      params: # Frontier
+        volume: -5 # Frontier
+    Click:
+      collection: HarpyClicks
+    Squish: # Frontier
+      collection: HarpySquishes # Frontier
     Chitter:
       collection: HarpyChitter
     Squeak:
@@ -60,8 +66,16 @@
       collection: VulpkaninHowls
     Honk:
       collection: HarpyHonks
+      params: # Frontier
+        volume: -5 # Frontier
     Weh:
       collection: Weh
+    Belch: # Frontier
+      collection: Belch # Frontier
+    Gasp: # Frontier
+      collection: HarpyGasp # Frontier
+    DefaultDeathgasp: # Frontier
+      collection: HarpyDeathGasp # Frontier
 
 - type: emoteSounds
   id: MaleVulpkanin
@@ -102,6 +116,10 @@
       collection: VulpkaninHowls
     Awoo:
       collection: VulpkaninHowls
+    Gasp:
+      collection: MaleGasp
+    DefaultDeathgasp:
+      collection: MaleDeathGasp
 
 - type: emoteSounds
   id: FemaleVulpkanin
@@ -142,3 +160,7 @@
       collection: VulpkaninHowls
     Awoo:
       collection: VulpkaninHowls
+    Gasp:
+      collection: FemaleGasp
+    DefaultDeathgasp:
+      collection: FemaleDeathGasp

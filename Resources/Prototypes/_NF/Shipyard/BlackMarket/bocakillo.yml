@@ -16,6 +16,9 @@
   category: Small
   group: BlackMarket
   shuttlePath: /Maps/_NF/Shuttles/BlackMarket/bocakillo.yml
+  guidebookPage: Null
+  class:
+  - Pirate
 
 - type: gameMap
   id: Bocakillo
@@ -32,6 +35,5 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs:
             Pirate: [ 0, 0 ]

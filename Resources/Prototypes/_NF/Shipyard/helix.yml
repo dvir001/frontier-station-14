@@ -14,8 +14,12 @@
   # description: A medium, modular hospital. Standard issue equipped with chem lab, cloning, and treatment ward
   # price: 44600 # +5800 from 15% markup
   # category: Medium
-  # group: Civilian
+  # group: Shipyard
   # shuttlePath: /Maps/_NF/Shuttles/helix.yml
+  # guidebookPage: Null
+  # class:
+  # - Medical
+  # - Chemistry
 
 # - type: gameMap
   # id: Helix
@@ -32,7 +36,6 @@
             # !type:NanotrasenNameGenerator
             # prefixCreator: '14'
         # - type: StationJobs
-          # overflowJobs: []
           # availableJobs:
             # Contractor: [ 0, 0 ]
             # Pilot: [ 0, 0 ]

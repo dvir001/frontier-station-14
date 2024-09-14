@@ -5,7 +5,11 @@
   # price: 49300
   # category: Medium
   # group: Security
+  # access: Bailiff
   # shuttlePath: /Maps/_NF/Shuttles/Nfsd/trident.yml
+  # guidebookPage: Null
+  # class:
+  # - Capital
 
 # - type: gameMap
   # id: Trident
@@ -22,7 +26,6 @@
             # !type:NanotrasenNameGenerator
             # prefixCreator: '14'
         # - type: StationJobs
-          # overflowJobs: []
           # availableJobs:
             # PrisonGuard: [ 0, 0 ]
             # SecurityOfficer: [ 0, 0 ]

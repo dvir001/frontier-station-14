@@ -142,51 +142,67 @@
   - type: Clothing
     sprite: _NF/Clothing/Uniforms/Jumpsuit/nfsd_tac_cream.rsi
 
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitPublicAffairsLiaison
+  name: public affairs liaison jumpsuit
+  description: A starched and pressed suit for the public affairs liaison.
+  components:
+  - type: Sprite
+    sprite: _NF/Clothing/Uniforms/Jumpsuit/public_affairs.rsi
+  - type: Clothing
+    sprite: _NF/Clothing/Uniforms/Jumpsuit/public_affairs.rsi
+
 # Syndicate Jupsuits with sensors off
 - type: entity
-  parent: ClothingUniformJumpsuitRecruitSyndie
+  parent:
+  - ClothingUniformJumpsuitRecruitSyndie
+  - ContrabandClothing
   id: ClothingUniformJumpsuitRecruitSyndieNF
   components:
   - type: SuitSensor
     randomMode: false
     mode: SensorOff
-  - type: Contraband
 
 - type: entity
-  parent: ClothingUniformJumpsuitRepairmanSyndie
+  parent:
+  - ClothingUniformJumpsuitRepairmanSyndie
+  - ContrabandClothing
   id: ClothingUniformJumpsuitRepairmanSyndieNF
   components:
   - type: SuitSensor
     randomMode: false
     mode: SensorOff
-  - type: Contraband
 
 - type: entity
-  parent: ClothingUniformJumpsuitParamedicSyndie
+  parent:
+  - ClothingUniformJumpsuitParamedicSyndie
+  - ContrabandClothing
   id: ClothingUniformJumpsuitParamedicSyndieNF
   components:
   - type: SuitSensor
     randomMode: false
     mode: SensorOff
-  - type: Contraband
 
 - type: entity
-  parent: ClothingUniformJumpsuitChiefEngineerSyndie
+  parent:
+  - ClothingUniformJumpsuitChiefEngineerSyndie
+  - ContrabandClothing
   id: ClothingUniformJumpsuitChiefEngineerSyndieNF
   components:
   - type: SuitSensor
     randomMode: false
     mode: SensorOff
-  - type: Contraband
 
 - type: entity
-  parent: ClothingUniformJumpsuitSyndieFormal
+  parent:
+  - ClothingUniformJumpsuitSyndieFormal
+  - ContrabandClothing
   id: ClothingUniformJumpsuitSyndieFormalNF
   components:
   - type: SuitSensor
     randomMode: false
     mode: SensorOff
-  - type: Contraband
 
 - type: entity
   parent: ClothingUniformBase
@@ -232,3 +248,33 @@
     sprite: Clothing/Uniforms/Jumpsuit/lawyergalaxyblue.rsi
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuit/lawyergalaxyblue.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitPirateSlops
+  name: pirate slops
+  description: A raggedy but comfortable uniform to plunder the sector.
+  components:
+  - type: Sprite
+    sprite: _NF/Clothing/Uniforms/Jumpsuit/pirate_slops.rsi
+  - type: Clothing
+    sprite: _NF/Clothing/Uniforms/Jumpsuit/pirate_slops.rsi
+  - type: SuitSensor
+    randomMode: false
+    mode: SensorOff
+  - type: PirateAccent
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitPirateLuffy
+  name: suspicious pirate uniform
+  description: A rather suspicious looking set of pirate clothes.
+  components:
+  - type: Sprite
+    sprite: _NF/Clothing/Uniforms/Jumpsuit/pirate_luffy.rsi
+  - type: Clothing
+    sprite: _NF/Clothing/Uniforms/Jumpsuit/pirate_luffy.rsi
+  - type: SuitSensor
+    randomMode: false
+    mode: SensorOff
+  - type: PirateAccent

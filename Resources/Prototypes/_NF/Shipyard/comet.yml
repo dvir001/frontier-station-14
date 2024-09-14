@@ -14,8 +14,12 @@
   description: A mining and construction vessel intended to help build or repair quickly.
   price: 55000
   category: Medium
-  group: Civilian
+  group: Shipyard
   shuttlePath: /Maps/_NF/Shuttles/comet.yml
+  guidebookPage: ShipyardComet
+  class:
+  - Salvage
+  - Engineering
 
 - type: gameMap
   id: Comet
@@ -32,7 +36,6 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs:
             Contractor: [ 0, 0 ]
             Pilot: [ 0, 0 ]

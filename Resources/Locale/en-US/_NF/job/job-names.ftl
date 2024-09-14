@@ -12,10 +12,10 @@ job-name-pirate = Pirate
 job-name-pirate-captain = Pirate Captain
 job-name-pirate-first-mate = Pirate First Mate
 job-name-security-guard = Security Guard
-job-name-senior-officer = Sergeant
 job-name-sheriff = Sheriff
 job-name-stc = Station Traffic Controller
 job-name-sr = Station Representative
+job-name-pal = Public Affairs Liaison
 
 # Role timers - Make these alphabetical or I cut you
 JobERTMailCarrier = ERT Mail Carrier

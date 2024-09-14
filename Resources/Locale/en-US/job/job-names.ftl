@@ -19,7 +19,7 @@ job-name-atmostech = Atmospheric Technician
 job-name-hop = Head of Personnel
 job-name-captain = Captain
 job-name-serviceworker = Service Worker
-job-name-centcomoff = CentCom Official
+job-name-centcomoff = CentComm Official
 job-name-reporter = Reporter
 job-name-musician = Musician
 job-name-librarian = Librarian
@@ -46,6 +46,18 @@ job-name-boxer = Boxer
 job-name-zookeeper = Zookeeper
 job-name-visitor = Visitor
 
+# unused jobs
+# these are required for the agent ID job icon tooltips
+# I am keeping them for roleplaying opportunities
+job-name-geneticist = Geneticist
+job-name-no-id = No ID
+job-name-prisoner = Prisoner
+job-name-roboticist = Roboticist
+job-name-syndicate = Syndicate
+job-name-unknown = Unknown
+job-name-virologist = Virologist
+job-name-zombie = Zombie
+
 # Role timers - Make these alphabetical or I cut you
 JobAtmosphericTechnician = Atmospheric Technician
 JobBartender = Bartender
@@ -69,8 +81,10 @@ JobERTJanitor = ERT Janitor
 JobERTLeader = ERT Leader
 JobERTMedical = ERT Medical
 JobERTSecurity = ERT Security
-JobHeadOfPersonnel = Head of Personnel
-JobHeadOfSecurity = Head of Security
+# Frontier: Head of Personnel<Station Representative
+JobHeadOfPersonnel = Station Representative
+# Frontier: Head of Security<Sheriff
+JobHeadOfSecurity = Sheriff
 JobJanitor = Janitor
 JobLawyer = Lawyer
 JobLibrarian = Librarian
@@ -79,7 +93,8 @@ JobMedicalIntern = Medical intern
 JobMime = Mime
 JobMusician = Musician
 JobParamedic = Paramedic
-JobPassenger = Passenger
+# Frontier: Passenger<Contractor
+JobPassenger = Contractor
 JobPsychologist = Psychologist
 JobQuartermaster = Quartermaster
 JobReporter = Reporter
@@ -87,11 +102,14 @@ JobResearchAssistant = Research Assistant
 JobResearchDirector = Research Director
 JobSalvageSpecialist = Salvage Specialist
 JobScientist = Scientist
-JobSecurityCadet = Security Cadet
-JobSecurityOfficer = Security Officer
+# Frontier: Security Cadet<Cadet
+JobSecurityCadet = Cadet
+# Frontier: Security Officer<Deputy
+JobSecurityOfficer = Deputy
 JobServiceWorker = Service Worker
 JobStationEngineer = Station Engineer
 JobTechnicalAssistant = Technical Assistant
 JobVisitor = Visitor
-JobWarden = Warden
+# Frontier: Warden<Bailiff
+JobWarden = Bailiff
 JobZookeeper = Zookeeper

@@ -1,20 +1,22 @@
 using Content.Server.Entry;
 using Content.Server.Explosion.EntitySystems;
+using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Radio;
 using Content.Server.Station.Components;
 using Content.Server.SurveillanceCamera;
 using Content.Shared.Emp;
 using Content.Shared.Examine;
+using Content.Shared.Tiles; // Frontier
+using Robust.Server.GameObjects;
 using Robust.Shared.Map;
-using static Content.Server.Shuttles.Systems.ShuttleConsoleSystem;
-using static Content.Server.Shuttles.Systems.ThrusterSystem;
 
 namespace Content.Server.Emp;
 
 public sealed class EmpSystem : SharedEmpSystem
 {
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly TransformSystem _transform = default!;
 
     public const string EmpPulseEffectPrototype = "EffectEmpPulse";
 
@@ -26,10 +28,8 @@ public sealed class EmpSystem : SharedEmpSystem
 
         SubscribeLocalEvent<EmpDisabledComponent, RadioSendAttemptEvent>(OnRadioSendAttempt);
         SubscribeLocalEvent<EmpDisabledComponent, RadioReceiveAttemptEvent>(OnRadioReceiveAttempt);
-        SubscribeLocalEvent<EmpDisabledComponent, ApcToggleMainBreakerAttemptEvent>(OnApcToggleMainBreaker);
-        SubscribeLocalEvent<EmpDisabledComponent, SurveillanceCameraSetActiveAttemptEvent>(OnCameraSetActive);
-        //SubscribeLocalEvent<EmpDisabledComponent, ThrusterToggleAttemptEvent>(OnThrusterToggle);
-        //SubscribeLocalEvent<EmpDisabledComponent, ShuttleToggleAttemptEvent>(OnShuttleConsoleToggle);
+        //SubscribeLocalEvent<EmpDisabledComponent, ApcToggleMainBreakerAttemptEvent>(OnApcToggleMainBreaker); // Frontier: Upstream - #28984
+        //SubscribeLocalEvent<EmpDisabledComponent, SurveillanceCameraSetActiveAttemptEvent>(OnCameraSetActive); // Frontier: Upstream - #28984
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public sealed class EmpSystem : SharedEmpSystem
             // Block EMP on grid
             var gridUid = Transform(uid).GridUid;
             var attemptEv = new EmpAttemptEvent();
-            if (HasComp<StationEmpImmuneComponent>(gridUid))
+            if (TryComp<ProtectedGridComponent>(gridUid, out var prot) && prot.PreventEmpEvents)
                 continue;
 
             TryEmpEffects(uid, energyConsumption, duration);
@@ -86,8 +86,22 @@ public sealed class EmpSystem : SharedEmpSystem
         }
         if (ev.Disabled)
         {
+            // Frontier: Upstream - #28984 start
+            //disabled.DisabledUntil = Timing.CurTime + TimeSpan.FromSeconds(duration);
             var disabled = EnsureComp<EmpDisabledComponent>(uid);
-            disabled.DisabledUntil = Timing.CurTime + TimeSpan.FromSeconds(duration);
+            if (disabled.DisabledUntil == TimeSpan.Zero)
+            {
+                disabled.DisabledUntil = Timing.CurTime;
+            }
+            disabled.DisabledUntil = disabled.DisabledUntil + TimeSpan.FromSeconds(duration);
+
+            /// i tried my best to go through the Pow3r server code but i literally couldn't find in relation to PowerNetworkBatteryComponent that uses the event system
+            /// the code is otherwise too esoteric for my innocent eyes
+            if (TryComp<PowerNetworkBatteryComponent>(uid, out var powerNetBattery))
+            {
+                powerNetBattery.CanCharge = false;
+            }
+            // Frontier: Upstream - #28984 end
         }
     }
 
@@ -103,6 +117,11 @@ public sealed class EmpSystem : SharedEmpSystem
                 RemComp<EmpDisabledComponent>(uid);
                 var ev = new EmpDisabledRemoved();
                 RaiseLocalEvent(uid, ref ev);
+
+                if (TryComp<PowerNetworkBatteryComponent>(uid, out var powerNetBattery)) // Frontier: Upstream - #28984
+                {
+                    powerNetBattery.CanCharge = true;
+                }
             }
         }
     }
@@ -114,7 +133,7 @@ public sealed class EmpSystem : SharedEmpSystem
 
     private void HandleEmpTrigger(EntityUid uid, EmpOnTriggerComponent comp, TriggerEvent args)
     {
-        EmpPulse(Transform(uid).MapPosition, comp.Range, comp.EnergyConsumption, comp.DisableDuration);
+        EmpPulse(_transform.GetMapCoordinates(uid), comp.Range, comp.EnergyConsumption, comp.DisableDuration);
         args.Handled = true;
     }
 
@@ -128,25 +147,16 @@ public sealed class EmpSystem : SharedEmpSystem
         args.Cancelled = true;
     }
 
-    private void OnApcToggleMainBreaker(EntityUid uid, EmpDisabledComponent component, ref ApcToggleMainBreakerAttemptEvent args)
-    {
-        args.Cancelled = true;
-    }
-
-    private void OnCameraSetActive(EntityUid uid, EmpDisabledComponent component, ref SurveillanceCameraSetActiveAttemptEvent args)
-    {
-        args.Cancelled = true;
-    }
-
-    //private void OnThrusterToggle(EntityUid uid, EmpDisabledComponent component, ref ThrusterToggleAttemptEvent args)
+    //private void OnApcToggleMainBreaker(EntityUid uid, EmpDisabledComponent component, ref ApcToggleMainBreakerAttemptEvent args) // Frontier: Upstream - #28984
     //{
     //    args.Cancelled = true;
     //}
 
-    //private void OnShuttleConsoleToggle(EntityUid uid, EmpDisabledComponent component, ref ShuttleToggleAttemptEvent args)
+    //private void OnCameraSetActive(EntityUid uid, EmpDisabledComponent component, ref SurveillanceCameraSetActiveAttemptEvent args) // Frontier: Upstream - #28984
     //{
     //    args.Cancelled = true;
     //}
+
 }
 
 /// <summary>

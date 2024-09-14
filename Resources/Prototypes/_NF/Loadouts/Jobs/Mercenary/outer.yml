@@ -1,19 +1,36 @@
 - type: loadout
   id: MercenaryClothingOuterVestWebMercenary
-  equipment: MercenaryClothingOuterVestWebMercenary
   price: 600
-
-- type: startingGear
-  id: MercenaryClothingOuterVestWebMercenary
   equipment:
     outerClothing: ClothingOuterVestWebMercenary
 
 - type: loadout
   id: MercenaryClothingOuterVestWebMercenaryBlack
-  equipment: MercenaryClothingOuterVestWebMercenaryBlack
   price: 600
-
-- type: startingGear
-  id: MercenaryClothingOuterVestWebMercenaryBlack
   equipment:
     outerClothing: ClothingOuterVestWebMercenaryBlack
+
+- type: loadout # Punkish (Static visuals)
+  id: MercenaryClothingOuterArmorPunkGreen
+  price: 600
+  equipment:
+    outerClothing: ClothingOuterArmorPunkGreen
+
+- type: loadout # Punkish (Static visuals)
+  id: MercenaryClothingOuterArmorPunkOrange
+  price: 600
+  equipment:
+    outerClothing: ClothingOuterArmorPunkOrange
+
+- type: loadout # Punkish (Static visuals)
+  id: MercenaryClothingOuterArmorPunkRed
+  price: 600
+  equipment:
+    outerClothing: ClothingOuterArmorPunkRed
+
+- type: loadout # Punkish (Randomized visuals)
+  id: MercenaryClothingOuterArmorPunkRandomized
+  name: punk webvest (random)
+  price: 600
+  equipment:
+    outerClothing: ClothingOuterArmorPunkRandomized

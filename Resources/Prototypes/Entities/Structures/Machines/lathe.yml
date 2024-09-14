@@ -52,9 +52,44 @@
   - type: MaterialStorageMagnetPickup # Frontier
     range: 0.30
 
+# a lathe that can be sped up with space lube / slowed down with glue
+- type: entity
+  abstract: true
+  parent: BaseLathe
+  id: BaseLatheLube
+  components:
+  - type: ReagentSpeed
+    solution: lube
+    modifiers:
+      SpaceLube: 0.25
+      SpaceGlue: 5
+  - type: SolutionContainerManager
+    solutions:
+      lube:
+        maxVol: 250
+  - type: Spillable
+    solution: lube
+  - type: RefillableSolution
+    solution: lube
+  - type: ExaminableSolution
+    solution: lube
+
+- type: entity
+  abstract: true
+  id: BaseHyperlathe
+  components:
+  - type: Lathe
+    materialUseMultiplier: 0.5
+    timeMultiplier: 1.5
+  - type: LatheHeatProducing
+  - type: ReagentSpeed
+    modifiers:
+      SpaceLube: 0.8 # being faster means less heat so lube needs to be nerfed
+      SpaceGlue: 5 # no change from normal lathe, overheat!!!
+
 - type: entity
   id: Autolathe
-  parent: BaseLathe
+  parent: BaseLatheLube
   name: autolathe
   description: It produces basic items using metal and glass.
   components:
@@ -82,6 +117,8 @@
   - type: Lathe
     idleState: icon
     runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
     staticRecipes:
       - Wirecutter
       - Igniter
@@ -89,7 +126,7 @@
       - Screwdriver
       - Welder
       - Wrench
-      - Crowbar
+      - CrowbarGreen
       - Multitool
       - NetworkConfigurator
       - SprayPainter
@@ -164,16 +201,22 @@
       - WeaponCapacitorRechargerCircuitboard
       - HandheldStationMap
       - ClothingHeadHatWelding
+      - WetFloorSign
+      - ClothingHeadHatCone
       - Durathread # Frontier
       - Plasteel # Frontier
       - ClothingOuterSuitEmergency # Frontier
       - ClothingHeadHelmetEVA # Frontier
       - ClothingHeadHelmetEVALarge # Frontier
       - ClothingOuterHardsuitEVA # Frontier
+      - ClothingOuterEVASuitContractor # Frontier
+      - ClothingOuterEVASuitPilot # Frontier
   - type: EmagLatheRecipes
     emagStaticRecipes:
       - BoxLethalshot
       - BoxShotgunFlare
+      - BoxShotgunSlug
+      - CombatKnife
       - MagazineBoxLightRifle
       - MagazineBoxMagnum
       - MagazineBoxPistol
@@ -184,68 +227,35 @@
       - MagazinePistolEmpty
       - MagazinePistolSubMachineGun
       - MagazinePistolSubMachineGunEmpty
+      - MagazinePistolSubMachineGunTopMounted
+      - MagazinePistolSubMachineGunTopMountedEmpty
       - MagazineRifle
       - MagazineRifleEmpty
       - MagazineShotgun
       - MagazineShotgunEmpty
-      - ShellTranquilizer
+      - MagazineShotgunSlug
+      - RiotShield
       - SpeedLoaderMagnum
       - SpeedLoaderMagnumEmpty
       - SpeedLoaderRifleHeavy # Frontier
       - SpeedLoaderRifleHeavyEmpty # Frontier
-    emagDynamicRecipes:
-      - BoxBeanbag
-      - BoxShotgunIncendiary
-      - BoxShotgunUranium
-      - GrenadeBlast
-      - GrenadeEMP
-      - GrenadeFlash
-      - MagazineBoxLightRifleIncendiary
-      - MagazineBoxLightRifleUranium
-      - MagazineBoxMagnumIncendiary
-      - MagazineBoxMagnumUranium
-      - MagazineBoxPistolIncendiary
-      - MagazineBoxPistolUranium
-      - MagazineBoxRifleIncendiary
-      - MagazineBoxRifleUranium
-      - MagazineGrenadeEmpty
-      - MagazineLightRifleIncendiary
-      - MagazineLightRifleUranium
-      - MagazinePistolIncendiary
-      - MagazinePistolUranium
-      - MagazineRifleIncendiary
-      - MagazineRifleUranium
-      - MagazineShotgunBeanbag
-      - MagazineShotgunIncendiary
-      - MagazineShotgunIncendiary
-      - PowerCageHigh
-      - PowerCageMedium
-      - PowerCageSmall
-      - SpeedLoaderMagnumIncendiary
-      - SpeedLoaderMagnumUranium
-      - SpeedLoaderRifleHeavyIncendiary # Frontier
-      - SpeedLoaderRifleHeavyUranium # Frontier
 
 - type: entity
   id: AutolatheHyperConvection
-  parent: Autolathe
+  parent: [Autolathe, BaseHyperlathe]
   name: hyper convection autolathe
   description: A highly-experimental autolathe that harnesses the power of extreme heat to slowly create objects more cost-effectively.
   components:
   - type: Sprite
     sprite: Structures/Machines/autolathe_hypercon.rsi
-  - type: Lathe
-    materialUseMultiplier: 0.5
-    timeMultiplier: 1.5
-  - type: LatheHeatProducing
   - type: Machine
     board: AutolatheHyperConvectionMachineCircuitboard
 
 - type: entity
   id: Protolathe
-  parent: BaseLathe
+  parent: BaseLatheLube
   name: protolathe
-  description: Converts raw materials into useful objects.
+  description: Converts raw materials into advanced items.
   components:
   - type: Sprite
     sprite: Structures/Machines/protolathe.rsi
@@ -271,6 +281,8 @@
   - type: Lathe
     idleState: icon
     runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
     staticRecipes:
     - LargeBeaker
     - Dropper
@@ -278,6 +290,7 @@
     dynamicRecipes:
       - PowerDrill
       - MiningDrill
+      - MiningDrillDiamond
       - AnomalyScanner
       - AnomalyLocator
       - AnomalyLocatorWide
@@ -326,12 +339,13 @@
       - SynthesizerInstrument
       - RPED
       - ClothingShoesBootsMagSci
-      - ClothingShoesBootsMagAdv # Frontier
+      - ClothingShoesBootsMoon
       - ClothingShoesBootsSpeed
       - NodeScanner
       - HolofanProjector
       - BluespaceBeaker
       - SyringeBluespace
+      - VialBluespace # Frontier
       - Jug
       - WeaponCrusher
       - WeaponCrusherDagger
@@ -353,9 +367,10 @@
       - FauxTileAstroIce
       - FauxTileAstroSnow
       - OreBagOfHolding
+      - PlantBagOfHolding #DeltaV
       - DeviceQuantumSpinInverter
       - UtilityBeltChiefEngineer
-      - JetpackVoid
+      - JetpackVoid # Frontier
       - ClothingShoesBootsMagAdv # Frontier
       - ClothingOuterHardsuitBasic # Frontier
       - ClothingOuterHardsuitAtmos # Frontier
@@ -377,32 +392,65 @@
       - ClothingHeadHelmetAncient # Frontier
       - ClothingOuterHardsuitAncientEVA # Frontier
       - ConstructionBagOfHolding # Frontier
+      - ServiceSelectiveDropper # Frontier
+      - PlantAnalyzer # Frontier
   - type: EmagLatheRecipes
     emagDynamicRecipes:
-      - ExplosivePayload
-      - WeaponLaserCarbine
-      - WeaponAdvancedLaser
-      - WeaponLaserCannon
-      - WeaponXrayCannon
+      - BoxBeanbag
+      - BoxShotgunIncendiary
+      - BoxShotgunUranium
+      - BoxShellTranquilizer # Frontier
+      - ExplosivePayload # Frontier
+      - GrenadeBlast # Frontier
+      - GrenadeEMP # Frontier
+      - GrenadeFlash # Frontier
+      - HoloprojectorSecurity # Frontier
+      - MagazineBoxLightRifleIncendiary # Frontier
+      - MagazineBoxLightRifleUranium # Frontier
+      - MagazineBoxMagnumIncendiary # Frontier
+      - MagazineBoxMagnumUranium # Frontier
+      - MagazineBoxPistolIncendiary # Frontier
+      - MagazineBoxPistolUranium
+      - MagazineBoxRifleIncendiary
+      - MagazineBoxRifleUranium
+      - MagazineGrenadeEmpty
+      - MagazineLightRifleIncendiary
+      - MagazineLightRifleUranium
+      - MagazinePistolIncendiary
+      - MagazinePistolUranium
+      - MagazineRifleIncendiary
+      - MagazineRifleUranium
+      - MagazineShotgunBeanbag
+      - MagazineShotgunIncendiary
+      - PortableRecharger
+      - PowerCageHigh
+      - PowerCageMedium
+      - PowerCageSmall
+      - SpeedLoaderMagnumIncendiary
+      - SpeedLoaderMagnumUranium
+      - TelescopicShield # Frontier
+      - Truncheon # Frontier
+      - WeaponAdvancedLaser # Frontier
+      - WeaponLaserCannon # Frontier
+      - WeaponLaserCarbine # Frontier
+      - WeaponXrayCannon # Frontier
+      - SpeedLoaderRifleHeavyIncendiary # Frontier
+      - SpeedLoaderRifleHeavyUranium # Frontier
 
 - type: entity
   id: ProtolatheHyperConvection
-  parent: Protolathe
+  parent: [Protolathe, BaseHyperlathe]
   name: hyper convection protolathe
   description: A highly-experimental protolathe that harnesses the power of extreme heat to slowly create objects more cost-effectively.
   components:
   - type: Sprite
     sprite: Structures/Machines/protolathe_hypercon.rsi
-  - type: Lathe
-    materialUseMultiplier: 0.5
-    timeMultiplier: 1.5
-  - type: LatheHeatProducing
   - type: Machine
     board: ProtolatheHyperConvectionMachineCircuitboard
 
 - type: entity
   id: CircuitImprinter
-  parent: BaseLathe
+  parent: BaseLatheLube
   name: circuit imprinter
   description: Prints circuit boards for machines.
   components:
@@ -442,10 +490,8 @@
     - BoozeDispenserMachineCircuitboard
     - SodaDispenserMachineCircuitboard
     - SpaceHeaterMachineCircuitBoard
-    # Frontier Start
-    - TilePrinterNFMachineCircuitboard
-    - SalvageTechFabCircuitboardNF
-    # Frontier End
+    - CutterMachineCircuitboard
+    - SalvageTechFabCircuitboardNF # Frontier
     dynamicRecipes:
       - ThermomachineFreezerMachineCircuitBoard
       - HellfireFreezerMachineCircuitBoard
@@ -533,33 +579,36 @@
       - SmallThrusterMachineCircuitboard # Frontier
       - SmallGyroscopeMachineCircuitboard # Frontier
       - JukeboxCircuitBoard
+  - type: EmagLatheRecipes
+    emagDynamicRecipes:
+      - ShuttleGunDusterCircuitboard
+      - ShuttleGunFriendshipCircuitboard
+      - ShuttleGunPerforatorCircuitboard
+      - ShuttleGunSvalinnMachineGunCircuitboard
   - type: MaterialStorage
     whitelist:
       tags:
         - Sheet
         - RawMaterial
         - Ingot
+  - type: RequireProjectileTarget
 
 - type: entity
   id: CircuitImprinterHyperConvection
-  parent: CircuitImprinter
+  parent: [CircuitImprinter, BaseHyperlathe]
   name: hyper convection circuit imprinter
   description: A highly-experimental circuit imprinter that harnesses the power of extreme heat to slowly create objects more cost-effectively.
   components:
   - type: Sprite
     sprite: Structures/Machines/circuit_imprinter_hypercon.rsi
-  - type: Lathe
-    materialUseMultiplier: 0.5
-    timeMultiplier: 1.5
-  - type: LatheHeatProducing
   - type: Machine
     board: CircuitImprinterHyperConvectionMachineCircuitboard
 
 - type: entity
   id: ExosuitFabricator
-  parent: BaseLathe
+  parent: BaseLatheLube
   name: exosuit fabricator
-  description: Creates parts for robotics and other mechanical needs
+  description: Creates parts for robotics and other mechanical needs.
   components:
   - type: Sprite
     sprite: Structures/Machines/exosuit_fabricator.rsi
@@ -673,7 +722,7 @@
 - type: entity
   id: Biofabricator
   parent: BaseLathe
-  name: biofabricator
+  name: biocube fabricator
   description: Produces animal cubes using biomass.
   components:
   - type: Sprite
@@ -682,16 +731,20 @@
     layers:
     - state: icon
       map: ["enum.LatheVisualLayers.IsRunning"]
+      color: "#ffaa99"
     - state: unlit
       shader: unshaded
       map: ["enum.PowerDeviceVisualLayers.Powered"]
+      color: "#ffaaaa"
     - state: inserting
       map: ["enum.MaterialStorageVisualLayers.Inserting"]
+      color: "#ffaaaa"
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: Machine
     board: BiofabricatorMachineCircuitboard
   - type: MaterialStorage
+    ignoreColor: true
     whitelist:
       tags:
         - Sheet
@@ -715,7 +768,7 @@
 
 - type: entity
   id: SecurityTechFab
-  parent: BaseLathe
+  parent: BaseLatheLube
   name: security techfab
   description: Prints equipment for use by security crew.
   components:
@@ -743,6 +796,7 @@
       - BoxShotgunPractice
       - BoxShotgunSlug
       - ClothingEyesHudSecurity
+      - CombatKnife
       - Flash
       - ForensicPad
       - Handcuffs
@@ -777,19 +831,19 @@
       - TargetHuman
       - TargetSyndicate
       - WeaponDisablerPractice
-      # Frontier Start
-      - ThrusterSecurityMachineCircuitboard
-      - ClothingOuterSuitEmergency
-      - ClothingHeadHelmetEVA
-      - ClothingHeadHelmetEVALarge
-      - ClothingOuterHardsuitEVAPrisoner
-      # Frontier End
       - WeaponLaserCarbinePractice
       - Zipties
+      - ThrusterSecurityMachineCircuitboard # Frontier
+      - ClothingOuterSuitEmergency # Frontier
+      - ClothingOuterEVASuitNfsd # Frontier
+      - ClothingHeadHelmetEVA # Frontier
+      - ClothingHeadHelmetEVALarge # Frontier
+      - ClothingOuterHardsuitEVAPrisoner # Frontier
     dynamicRecipes:
       - BoxBeanbag
       - BoxShotgunIncendiary
       - BoxShotgunUranium
+      - BoxShellTranquilizer
       - ExplosivePayload
       - FlashPayload
       - GrenadeBlast
@@ -821,7 +875,6 @@
       - PowerCageHigh
       - PowerCageMedium
       - PowerCageSmall
-      - ShellTranquilizer
       - ShuttleGunDusterCircuitboard
       - ShuttleGunFriendshipCircuitboard
       - ShuttleGunPerforatorCircuitboard
@@ -842,6 +895,7 @@
       - WeaponLaserCannon
       - WeaponLaserCarbine
       - WeaponXrayCannon
+      - ClothingBackpackElectropack
   - type: MaterialStorage
     whitelist:
       tags:
@@ -851,7 +905,7 @@
 
 - type: entity
   id: AmmoTechFab
-  parent: BaseLathe
+  parent: BaseLatheLube
   name: ammo techfab
   description: Prints the bare minimum of bullets that any budget military or armory could need. Nothing fancy.
   components:
@@ -877,6 +931,7 @@
         - BoxLethalshot
         - BoxShotgunFlare
         - BoxShotgunSlug
+        - BoxShellTranquilizer
         - MagazineBoxLightRifle
         - MagazineBoxMagnum
         - MagazineBoxPistol
@@ -890,11 +945,12 @@
         - MagazineShotgun
         - MagazineShotgunEmpty
         - MagazineShotgunSlug
-        - ShellTranquilizer
         - SpeedLoaderMagnum
         - SpeedLoaderMagnumEmpty
         - SpeedLoaderRifleHeavy # Frontier
         - SpeedLoaderRifleHeavyEmpty # Frontier
+        - 10roundmagazine #frontier by VividPups
+        - 10roundmagazineempty #frontier by VividPups
     - type: MaterialStorage
       whitelist:
         tags:
@@ -904,7 +960,7 @@
 
 - type: entity
   id: MedicalTechFab
-  parent: BaseLathe
+  parent: BaseLatheLube
   name: medical techfab
   description: Prints equipment for use by the medbay.
   components:
@@ -963,20 +1019,24 @@
       - Saw
       - Hemostat
       - ClothingEyesGlassesChemical
-      # Frontier Start
-      - ClothingOuterSuitEmergency
-      - ClothingOuterHardsuitVoidParamed
-      # Frontier End
+      - WhiteCane
+      - ClothingOuterEVASuitMedic # Frontier
+      - ClothingOuterSuitEmergency # Frontier
+      - ClothingOuterHardsuitVoidParamed # Frontier
+      - BaseChemistryEmptyVial # Frontier
+      - PowerCellSmall # Frontier
+
     dynamicRecipes:
+      - VialBluespace # Frontier
       - ChemicalPayload
       - CryostasisBeaker
       - BluespaceBeaker
       - SyringeBluespace
       - Jug
       - SyringeCryostasis
-      # Frontier Start
-      - ClothingOuterHardsuitMedical
-      # Frontier End
+      - ClothingOuterHardsuitMedical # Frontier
+      - OintmentAdvancedNF # Frontier
+      - BrutepackAdvancedNF # Frontier      
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget
@@ -1031,6 +1091,8 @@
       - ClothingHeadHatBeretCmo
       - ClothingUniformJumpsuitCMO
       - ClothingUniformJumpskirtCMO
+      - ClothingUniformJumpsuitCMOTurtle
+      - ClothingUniformJumpskirtCMOTurtle
       - ClothingUniformJumpsuitDetective
       - ClothingUniformJumpskirtDetective
       - ClothingUniformJumpsuitEngineering
@@ -1040,18 +1102,18 @@
       - ClothingHeadHatHopcap
       - ClothingUniformJumpsuitHoP
       - ClothingUniformJumpskirtHoP
-      - ClothingHeadHatBeretHoS
-      - ClothingHeadHatHoshat
-      - ClothingUniformJumpsuitHoS
-      - ClothingUniformJumpskirtHoS
-      - ClothingUniformJumpsuitHosFormal
-      - ClothingUniformJumpskirtHosFormal
-      - ClothingUniformJumpsuitHoSAlt
-      - ClothingUniformJumpskirtHoSAlt
-      - ClothingUniformJumpsuitHoSBlue
-      - ClothingUniformJumpsuitHoSGrey
-      - ClothingUniformJumpsuitHoSParadeMale
-      - ClothingUniformJumpskirtHoSParadeMale
+#      - ClothingHeadHatBeretHoS # Frontier
+#      - ClothingHeadHatHoshat # Frontier
+#      - ClothingUniformJumpsuitHoS # Frontier
+#      - ClothingUniformJumpskirtHoS # Frontier
+#      - ClothingUniformJumpsuitHosFormal # Frontier
+#      - ClothingUniformJumpskirtHosFormal # Frontier
+#      - ClothingUniformJumpsuitHoSAlt # Frontier
+#      - ClothingUniformJumpskirtHoSAlt # Frontier
+#      - ClothingUniformJumpsuitHoSBlue # Frontier
+#      - ClothingUniformJumpsuitHoSGrey # Frontier
+#      - ClothingUniformJumpsuitHoSParadeMale # Frontier
+#      - ClothingUniformJumpskirtHoSParadeMale # Frontier
       - ClothingUniformJumpsuitHydroponics
       - ClothingUniformJumpskirtHydroponics
       - ClothingUniformJumpsuitJanitor
@@ -1089,34 +1151,27 @@
       - ClothingUniformJumpskirtScientist
       - ClothingUniformJumpsuitSeniorResearcher
       - ClothingUniformJumpskirtSeniorResearcher
-      - ClothingHeadHatBeretSecurity
-      - ClothingUniformJumpsuitSec
-      - ClothingUniformJumpskirtSec
-      - ClothingHeadHatBeretBrigmedic
-      - ClothingUniformJumpsuitBrigmedic
-      - ClothingUniformJumpskirtBrigmedic
-      - ClothingHeadHatBeretWarden
-      - ClothingHeadHatWarden
-      - ClothingUniformJumpsuitWarden
-      - ClothingUniformJumpskirtWarden
-      - ClothingUniformJumpsuitPrivateSec #Frontier
-      - ClothingUniformJumpskirtPrivateSec #Frontier
+#      - ClothingHeadHatBeretSecurity # Frontier
+#      - ClothingUniformJumpsuitSec # Frontier
+#      - ClothingUniformJumpskirtSec # Frontier
+#      - ClothingHeadHatBeretBrigmedic # Frontier
+#      - ClothingUniformJumpsuitBrigmedic # Frontier
+#      - ClothingUniformJumpskirtBrigmedic # Frontier
+#      - ClothingHeadHatBeretWarden # Frontier
+#      - ClothingHeadHatWarden # Frontier
+#      - ClothingUniformJumpsuitWarden # Frontier
+#      - ClothingUniformJumpskirtWarden # Frontier
+      - ClothingUniformJumpsuitPrivateSec # Frontier
+      - ClothingUniformJumpskirtPrivateSec # Frontier
       # Winter outfits
       - ClothingOuterWinterCap
       - ClothingOuterWinterCE
       - ClothingOuterWinterCMO
       - ClothingOuterWinterHoP
-      - ClothingOuterWinterHoSUnarmored
-      - ClothingOuterWinterWardenUnarmored
+#      - ClothingOuterWinterHoSUnarmored # Frontier
+#      - ClothingOuterWinterWardenUnarmored # Frontier
       - ClothingOuterWinterQM
       - ClothingOuterWinterRD
-      - ClothingNeckMantleCap
-      - ClothingNeckMantleCE
-      - ClothingNeckMantleCMO
-      - ClothingNeckMantleHOP
-      - ClothingNeckMantleHOS
-      - ClothingNeckMantleRD
-      - ClothingNeckMantleQM
       - ClothingOuterWinterMusician
       - ClothingOuterWinterClown
       - ClothingOuterWinterMime
@@ -1136,7 +1191,7 @@
       - ClothingOuterWinterViro
       - ClothingOuterWinterSci
       - ClothingOuterWinterRobo
-      - ClothingOuterWinterSec
+#      - ClothingOuterWinterSec # Frontier
       - ClothingOuterWinterCoatMail
       # Ties
       - ClothingNeckTieRed
@@ -1159,8 +1214,15 @@
       - CarpetGreen
       - CarpetOrange
       - CarpetPurple
+      - FloorCarpetItemSkyBlue # Frontier
       - CarpetCyan
       - CarpetWhite
+      - FloorTileItemCarpetClown # Frontier
+      - FloorTileItemCarpetOffice # Frontier
+      - FloorTileItemEighties # Frontier
+      - FloorTileItemArcadeBlue # Frontier
+      - FloorTileItemArcadeBlue2 # Frontier
+      - FloorTileItemArcadeRed # Frontier
 #  - type: EmagLatheRecipes # Frontier
 #    emagStaticRecipes: # Frontier
 #      - ClothingHeadHatCentcomcap # Frontier
@@ -1220,17 +1282,21 @@
     - type: Lathe
       idleState: icon
       runningState: building
+      defaultProductionAmount: 10
       staticRecipes:
-        - SheetSteel30
-        - SheetGlass30
-        - SheetRGlass30
-        - SheetPlasma30
-        - SheetPGlass30
-        - SheetRPGlass30
-        - SheetUranium30
-        - IngotGold30
-        - IngotSilver30
-        - MaterialBananium10
+        - SheetSteel
+        - SheetGlass1
+        - SheetRGlass
+        - SheetPlasma1
+        - SheetPGlass1
+        - SheetRPGlass1
+        - SheetPlasteel1 # Frontier
+        - SheetUranium1
+        - IngotGold1
+        - IngotSilver1
+        - MaterialBananium1
+        - MaterialDiamond
+        - BluespaceCrystal #Nyano - Summary: Bluespace Crystals can be created here.
 
 - type: entity
   parent: OreProcessor
@@ -1246,19 +1312,21 @@
     materialUseMultiplier: 0.75
     timeMultiplier: 0.5
     staticRecipes:
-      - SheetSteel30
-      - SheetGlass30
-      - SheetRGlass30
-      - SheetPlasma30
-      - SheetPGlass30
-      - SheetRPGlass30
-      - SheetPlasteel30
-      - SheetUranium30
-      - SheetUGlass30
-      - SheetRUGlass30
-      - IngotGold30
-      - IngotSilver30
-      - MaterialBananium10
+      - SheetSteel
+      - SheetGlass1
+      - SheetRGlass
+      - SheetPlasma1
+      - SheetPGlass1
+      - SheetRPGlass1
+      - SheetPlasteel1
+      - SheetUranium1
+      - SheetUGlass1
+      - SheetRUGlass1
+      - IngotGold1
+      - IngotSilver1
+      - MaterialBananium1
+      - MaterialDiamond
+      - BluespaceCrystal #Nyano - Summary: Bluespace Crystals can be created here.
 
 - type: entity
   parent: BaseLathe
@@ -1279,7 +1347,7 @@
   - type: MaterialStorage
     dropOnDeconstruct: false #should drop ores instead of ingots/sheets
     ignoreColor: true
-    canEjectStoredMaterials: false
+    canEjectStoredMaterials: true # Frontier: false<true
     whitelist:
       tags:
       - Raw
@@ -1290,3 +1358,113 @@
     staticRecipes:
     - MaterialSheetMeat
     - SheetPaper
+
+- type: entity
+  parent: BaseLathe
+  id: CutterMachine
+  name: cutter machine
+  description: This is a cutter. It cuts. Add variety to your station floor with eye-pleasing patterns! Don't stick your fingers in.
+  components:
+  - type: Transform
+    noRot: false
+  - type: Sprite
+    sprite: Structures/Machines/cuttermachine.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: CutterMachineCircuitboard
+  - type: Lathe
+    producingSound: /Audio/Machines/cutter.ogg
+    idleState: icon
+    runningState: building
+    staticRecipes:
+      - FloorTileItemDark
+      - FloorTileItemDarkDiagonalMini
+      - FloorTileItemDarkDiagonal
+      - FloorTileItemDarkHerringbone
+      - FloorTileItemDarkMini
+      - FloorTileItemDarkMono
+      - FloorTileItemDarkPavement
+      - FloorTileItemDarkPavementVertical
+      - FloorTileItemDarkOffset
+      - FloorTileItemSteelCheckerDark
+      - FloorTileItemSteel
+      - FloorTileItemSteelOffset
+      - FloorTileItemSteelDiagonalMini
+      - FloorTileItemSteelDiagonal
+      - FloorTileItemSteelHerringbone
+      - FloorTileItemSteelMini
+      - FloorTileItemSteelMono
+      - FloorTileItemSteelPavement
+      - FloorTileItemSteelPavementVertical
+      - FloorTileItemWhite
+      - FloorTileItemWhiteOffset
+      - FloorTileItemWhiteDiagonalMini
+      - FloorTileItemWhiteDiagonal
+      - FloorTileItemWhiteHerringbone
+      - FloorTileItemWhiteMini
+      - FloorTileItemWhiteMono
+      - FloorTileItemWhitePavement
+      - FloorTileItemWhitePavementVertical
+      - FloorTileItemSteelCheckerLight
+      - FloorTileItemGratingMaint
+      - FloorTileItemTechmaint
+      - FloorTileItemSteelMaint
+      - FloorTileItemWood
+      - FloorTileItemWoodLarge
+      - FloorTileItemWoodPattern
+      - FloorTileItemConcrete
+      - FloorTileItemConcreteMono
+      - FloorTileItemConcreteSmooth
+      - FloorTileItemGrayConcrete
+      - FloorTileItemGrayConcreteMono
+      - FloorTileItemGrayConcreteSmooth
+      - FloorTileItemOldConcrete
+      - FloorTileItemOldConcreteMono
+      - FloorTileItemOldConcreteSmooth
+      - FloorTileItemMetalDiamond # Frontier
+      - FloorTileItemFreezer # Frontier
+      - FloorTileItemShowroom # Frontier
+      - FloorTileItemGCircuit # Frontier
+      - FloorTileItemBCircuit # Frontier
+      - FloorTileItemGold # Frontier
+      - FloorTileItemSilver # Frontier
+      - FloorTileItemMono # Frontier
+      - FloorTileItemLino # Frontier
+      - FloorTileItemHydro # Frontier
+      - FloorTileItemLime # Frontier
+      - FloorTileItemShuttleWhite # Frontier
+      - FloorTileItemShuttlePurple # Frontier
+      - FloorTileItemBoxing # Frontier
+      - FloorTileItemGym # Frontier
+      - FloorTileItemBlue # Frontier
+      - FloorTileItemMining # Frontier
+      - FloorTileItemMiningDark # Frontier
+      - FloorTileItemMiningLight # Frontier
+      - FloorTileItemBar # Frontier
+      - FloorTileItemClown # Frontier
+      - FloorTileItemMime # Frontier
+      - FloorTileItemKitchen # Frontier
+      - FloorTileItemLaundry # Frontier
+      - SheetPaper # Frontier
+    dynamicRecipes:
+    - FauxTileAstroGrass # Frontier
+    - FauxTileAstroIce # Frontier
+  - type: EmagLatheRecipes # Frontier
+    emagStaticRecipes: # Frontier
+    - FloorTileItemFlesh # Frontier
+  - type: MaterialStorage
+    whitelist:
+      tags:
+        - Sheet
+        - Metal
+        - Wooden
+        - RawMaterial
+        - Plastic

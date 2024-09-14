@@ -6,6 +6,11 @@
   category: Large
   group: Scrap
   shuttlePath: /Maps/_NF/Shuttles/Scrap/bison.yml
+  guidebookPage: Null
+  class:
+  - Scrapyard
+  - Salvage
+  - Civilian
 
 - type: gameMap
   id: Bison
@@ -22,7 +27,6 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs:
             Contractor: [ 0, 0 ]
             Pilot: [ 0, 0 ]

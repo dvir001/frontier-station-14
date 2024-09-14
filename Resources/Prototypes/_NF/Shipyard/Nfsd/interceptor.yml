@@ -5,7 +5,11 @@
   price: 21350
   category: Small
   group: Security
+  access: Detective
   shuttlePath: /Maps/_NF/Shuttles/Nfsd/interceptor.yml
+  guidebookPage: Null
+  class:
+  - Detective
 
 - type: gameMap
   id: Interceptor
@@ -22,5 +26,4 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs: {}

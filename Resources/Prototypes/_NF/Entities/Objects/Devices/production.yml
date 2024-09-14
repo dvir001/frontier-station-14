@@ -10,21 +10,7 @@
       prototype: Shredder
       requirements:
         MatterBin: 1
-      materialRequirements:
-        Glass: 1
-
-- type: entity
-  id: TilePrinterNFMachineCircuitboard
-  parent: BaseMachineCircuitboard
-  name: tile-meister 5000 machine board
-  description: A machine printed circuit board for an tile-meister 5000
-  components:
-    - type: MachineBoard
-      prototype: TilePrinterNF
-      requirements:
-        MatterBin: 2
-        Manipulator: 2
-      materialRequirements:
+      stackRequirements:
         Glass: 1
 
 - type: entity
@@ -42,9 +28,43 @@
         Manipulator: 2
       tagRequirements:
         GlassBeaker:
-          Amount: 2
-          DefaultPrototype: Beaker
-          ExamineName: Glass Beaker
+          amount: 2
+          defaultPrototype: Beaker
+
+- type: entity
+  id: MercenaryTechFabCircuitboardNF
+  parent: SecurityTechFabCircuitboard
+  name: mercenary techfab machine board
+  description: A machine printed circuit board for a mercenary techfab
+  components:
+    - type: MachineBoard
+      prototype: MercenaryTechFab
+      requirements:
+        MatterBin: 2
+        Manipulator: 2
+      tagRequirements:
+        GlassBeaker:
+          amount: 2
+          defaultPrototype: Beaker
+
+- type: entity
+  id: MercenaryTechFabCircuitboardHackedNF
+  parent: SecurityTechFabCircuitboard
+  name: hacked mercenary techfab machine board
+  description: A spray painted circuit board for a mercenary techfab with some doodads attached to it. Don't worry 'bout it, choomba.
+  components:
+    - type: Sprite
+      sprite: _NF/Objects/Misc/module.rsi
+      state: hacked-merc-fab-board
+    - type: MachineBoard
+      prototype: MercenaryTechFabHacked
+      requirements:
+        MatterBin: 2
+        Manipulator: 2
+      tagRequirements:
+        GlassBeaker:
+          amount: 2
+          defaultPrototype: Beaker
 
 # TechFab
 - type: entity
@@ -54,6 +74,7 @@
   description: A machine printed circuit board for an nfsd techfab.
   components:
     - type: Sprite
+      sprite: _NF/Objects/Misc/module.rsi
       state: nfsd
     - type: MachineBoard
       prototype: NfsdTechFab
@@ -68,7 +89,7 @@
     prototype: ThrusterSecurity
     requirements:
       Capacitor: 3
-    materialRequirements:
+    stackRequirements:
       Steel: 5
 
 - type: entity
@@ -80,7 +101,7 @@
     prototype: ThrusterNfsd
     requirements:
       Capacitor: 3
-    materialRequirements:
+    stackRequirements:
       Steel: 5
 
 - type: entity
@@ -92,10 +113,13 @@
     prototype: SmallThruster
     requirements:
       Capacitor: 4
-    materialRequirements:
+    stackRequirements:
       Steel: 5
   - type: StaticPrice
     price: 12.5
+  - type: Tag # Frontier
+    tags: # Frontier
+    - SmallThrusterMachineCircuitboard # Frontier
 
 # Gyroscope
 - type: entity
@@ -108,7 +132,7 @@
     requirements:
       Manipulator: 2
       Capacitor: 1
-    materialRequirements:
+    stackRequirements:
       Glass: 2
 
 - type: entity
@@ -121,7 +145,7 @@
     requirements:
       Manipulator: 2
       Capacitor: 1
-    materialRequirements:
+    stackRequirements:
       Glass: 2
   - type: StaticPrice
     price: 12.5
@@ -136,7 +160,7 @@
     requirements:
       Manipulator: 2
       Capacitor: 1
-    materialRequirements:
+    stackRequirements:
       Glass: 2
 
 - type: entity
@@ -149,7 +173,7 @@
     requirements:
       Manipulator: 2
       Capacitor: 1
-    materialRequirements:
+    stackRequirements:
       Glass: 2
   - type: StaticPrice
     price: 12.5
@@ -164,7 +188,42 @@
     requirements:
       Manipulator: 2
       Capacitor: 1
-    materialRequirements:
+    stackRequirements:
       Glass: 2
   - type: StaticPrice
     price: 12.5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: M_EmpMachineCircuitboard
+  name: M_EMP Generator machine board
+  description: A machine printed circuit board for a mobile EMP generator.
+  components:
+  - type: MachineBoard
+    prototype: M_Emp
+    requirements:
+      Capacitor: 4
+    stackRequirements:
+      Steel: 5
+      Cable: 2
+
+- type: entity
+  id: PortableGeneratorHyperPacmanMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: H.Y.P.E.R.P.A.C.M.A.N.-type portable generator machine board
+  components:
+    - type: Sprite
+      state: engineering
+    - type: MachineBoard
+      prototype: PortableGeneratorHyperPacman
+      requirements:
+        Capacitor: 2
+      stackRequirements:
+        CableHV: 10
+    - type: PhysicalComposition
+      materialComposition:
+        Glass: 200
+      chemicalComposition:
+        Silicon: 20
+    - type: StaticPrice
+      price: 40

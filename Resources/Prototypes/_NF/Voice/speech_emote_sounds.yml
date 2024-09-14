@@ -12,8 +12,8 @@
       collection: MaleSneezes
     Cough:
       collection: MaleCoughs
-    CatHisses:
-      collection: CatHisses
+    Hiss:
+      collection: GoblinHiss
     MonkeyScreeches:
       collection: MonkeyScreeches
     Yawn:
@@ -30,6 +30,16 @@
       collection: Whistles
     Weh:
       collection: Weh
+    Belch:
+      collection: Belch
+    Gasp:
+      collection: GoblinGasp
+    DefaultDeathgasp:
+      collection: GoblinDeathGasp
+    GoblinMutter:
+      collection: GoblinMutterCollection
+    GoblinThroatSinging:
+      collection: GoblinThroatSingingCollection
 
 - type: emoteSounds
   id: FemaleGoblin
@@ -44,8 +54,8 @@
       collection: FemaleSneezes
     Cough:
       collection: FemaleCoughs
-    CatHisses:
-      collection: CatHisses
+    Hiss:
+      collection: GoblinHiss
     MonkeyScreeches:
       collection: MonkeyScreeches
     Yawn:
@@ -62,6 +72,16 @@
       collection: Whistles
     Weh:
       collection: Weh
+    Belch:
+      collection: Belch
+    Gasp:
+      collection: GoblinGasp
+    DefaultDeathgasp:
+      collection: GoblinDeathGasp
+    GoblinMutter:
+      collection: GoblinMutterCollection
+    GoblinThroatSinging:
+      collection: GoblinThroatSingingCollection
 
 - type: emoteSounds
   id: Cat
@@ -100,9 +120,9 @@
       variation: 0.125
 
 - type: emoteSounds
-  id: Jerma
+  id: Fox
   params:
-    variation: null
+    variation: 0.125
   sounds:
     Scream:
-      collection: Jerma
+      collection: Fox

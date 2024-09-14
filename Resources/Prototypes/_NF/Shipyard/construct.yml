@@ -2,10 +2,13 @@
   id: Construct
   name: NT Construct
   description: A technically spacefaring vessel.  No livery.
-  price: 12075
-  category: Small
-  group: Civilian
+  price: 10500
+  category: Micro
+  group: Shipyard
   shuttlePath: /Maps/_NF/Shuttles/construct.yml
+  guidebookPage: ShipyardConstruct
+  class:
+  - Engineering
 
 - type: gameMap
   id: Construct
@@ -22,7 +25,6 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs:
             Contractor: [ 0, 0 ]
             Pilot: [ 0, 0 ]

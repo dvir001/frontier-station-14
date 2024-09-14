@@ -115,7 +115,7 @@ public abstract class SharedIdCardSystem : EntitySystem
         return true;
     }
 
-    public bool TryChangeJobIcon(EntityUid uid, StatusIconPrototype jobIcon, IdCardComponent? id = null, EntityUid? player = null)
+    public bool TryChangeJobIcon(EntityUid uid, JobIconPrototype jobIcon, IdCardComponent? id = null, EntityUid? player = null)
     {
         if (!Resolve(uid, ref id))
         {
@@ -148,7 +148,7 @@ public abstract class SharedIdCardSystem : EntitySystem
         foreach (var department in _prototypeManager.EnumeratePrototypes<DepartmentPrototype>())
         {
             if (department.Roles.Contains(job.ID))
-                id.JobDepartments.Add("department-" + department.ID);
+                id.JobDepartments.Add(department.ID);
         }
 
         Dirty(uid, id);
@@ -208,9 +208,9 @@ public abstract class SharedIdCardSystem : EntitySystem
         var jobSuffix = string.IsNullOrWhiteSpace(id.JobTitle) ? string.Empty : $" ({id.JobTitle})";
 
         var val = string.IsNullOrWhiteSpace(id.FullName)
-            ? Loc.GetString("access-id-card-component-owner-name-job-title-text",
+            ? Loc.GetString(id.NameLocId,
                 ("jobSuffix", jobSuffix))
-            : Loc.GetString("access-id-card-component-owner-full-name-job-title-text",
+            : Loc.GetString(id.FullNameLocId,
                 ("fullName", id.FullName),
                 ("jobSuffix", jobSuffix));
         _metaSystem.SetEntityName(uid, val);

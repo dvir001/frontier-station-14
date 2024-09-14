@@ -14,8 +14,11 @@
   description: A combination animal ranch and pie bakery
   price: 27500
   category: Small
-  group: Civilian
+  group: Shipyard
   shuttlePath: /Maps/_NF/Shuttles/piecrust.yml
+  guidebookPage: Null
+  class:
+  - Kitchen
 
 - type: gameMap
   id: Piecrust
@@ -32,7 +35,6 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs:
             Contractor: [ 0, 0 ]
             Pilot: [ 0, 0 ]

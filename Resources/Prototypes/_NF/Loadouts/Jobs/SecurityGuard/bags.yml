@@ -1,26 +1,19 @@
 - type: loadout
   id: SecurityGuardBackpack
-  equipment: SecurityGuardBackpack
-
-- type: startingGear
-  id: SecurityGuardBackpack
   equipment:
-    back: ClothingBackpackSecurityFilled
+    back: ClothingBackpackSecurity
 
 - type: loadout
   id: SecurityGuardSatchel
-  equipment: SecurityGuardSatchel
-
-- type: startingGear
-  id: SecurityGuardSatchel
   equipment:
-    back: ClothingBackpackSatchelSecurityFilled
+    back: ClothingBackpackSatchelSecurity
 
 - type: loadout
   id: SecurityGuardDuffel
-  equipment: SecurityGuardDuffel
-
-- type: startingGear
-  id: SecurityGuardDuffel
   equipment:
-    back: ClothingBackpackDuffelSecurityFilled
+    back: ClothingBackpackDuffelSecurity
+
+- type: loadout
+  id: SecurityGuardMessenger
+  equipment:
+    back: ClothingBackpackMessengerSecurity

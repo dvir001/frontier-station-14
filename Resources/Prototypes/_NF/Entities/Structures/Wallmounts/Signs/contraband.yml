@@ -419,3 +419,44 @@
   components:
   - type: DeadDrop
 
+- type: entity
+  parent: NFPosterContrabandLvhiStation
+  id: NFPosterContrabandLvhiStationDD
+  suffix: DeadDrop
+  components:
+  - type: DeadDrop
+
+- type: entity
+  parent: NFPosterContrabandLvhiShuttle
+  id: NFPosterContrabandLvhiShuttleDD
+  suffix: DeadDrop
+  components:
+  - type: DeadDrop
+
+- type: entity
+  parent: NFPosterContrabandLvhiSpace
+  id: NFPosterContrabandLvhiSpaceDD
+  suffix: DeadDrop
+  components:
+  - type: DeadDrop
+  
+- type: entity
+  parent: NFPosterContrabandFsbLogo
+  id: NFPosterContrabandFsbLogoDD
+  suffix: DeadDrop
+  components:
+  - type: DeadDrop
+  
+- type: entity
+  parent: NFPosterContrabandFsbStasis
+  id: NFPosterContrabandFsbStasisDD
+  suffix: DeadDrop
+  components:
+  - type: DeadDrop
+  
+- type: entity
+  parent: NFPosterContrabandFsbApothecary
+  id: NFPosterContrabandFsbApothecaryDD
+  suffix: DeadDrop
+  components:
+  - type: DeadDrop

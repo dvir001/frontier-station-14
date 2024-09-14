@@ -5,7 +5,11 @@
   price: 24220
   category: Small
   group: Security
+  access: Security
   shuttlePath: /Maps/_NF/Shuttles/Nfsd/templar.yml
+  guidebookPage: Null
+  class:
+  - Fighter
 
 - type: gameMap
   id: Templar
@@ -22,5 +26,4 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs: {}

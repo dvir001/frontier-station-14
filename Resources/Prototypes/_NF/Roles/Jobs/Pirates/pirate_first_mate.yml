@@ -4,15 +4,20 @@
   description: job-description-pirate-first-mate
   playTimeTracker: JobPirateFirstMate
   requirements:
-    - !type:WhitelistRequirement
     - !type:OverallPlaytimeRequirement
-      time: 129600 # Frontier - 36 hours
+      time: 129600 # 36 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 10800 # 3 hours
+  whitelisted: true
   startingGear: PirateFirstMateNFGear
   alwaysUseSpawner: true
   hideConsoleVisibility: true
   canBeAntag: true
-  icon: "JobIconMercenary" 
-  supervisors: job-supervisors-hire
+  icon: "JobIconPirateFirstMate"
+  supervisors: job-supervisors-captain
+  weight: 30
+  displayWeight: 30
   setPreference: true
   accessGroups:
   - GeneralAccess
@@ -22,13 +27,15 @@
     - type: MailDisabled
   - !type:AddImplantSpecial
     implants: [ FreelanceTrackingImplant ]
+  - !type:GiveItemOnHolidaySpecial # Even pirates get a piece of cake.
+    holiday: FrontierBirthday
+    prototype: FrontierBirthdayGift
 
 - type: startingGear
   id: PirateFirstMateNFGear
   equipment:
-    head: ClothingHeadHatPirateTricord
     ears: ClothingHeadsetAltFreelancer
-    shoes: ClothingShoesBootsLaceup
     belt: ClothingBeltUtility
-    pocket1: AppraisalTool
+    pocket1: BasePirateUplinkPirateCrew
+    pocket2: AppraisalTool
     outerClothing: ClothingOuterCoatGentle

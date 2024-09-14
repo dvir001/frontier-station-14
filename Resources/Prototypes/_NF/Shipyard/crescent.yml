@@ -14,8 +14,13 @@
   description: The Crescent, named for its exterior shape, is a vessel focused on providing service, medical aide, and scientific breakthroughs for smaller vessels.
   price: 208020
   category: Large
-  group: Civilian
+  group: Shipyard
   shuttlePath: /Maps/_NF/Shuttles/crescent.yml
+  guidebookPage: Null
+  class:
+  - Science
+  - Chemistry
+  - Civilian
 
 - type: gameMap
   id: Crescent
@@ -32,7 +37,6 @@
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
         - type: StationJobs
-          overflowJobs: []
           availableJobs:
             Contractor: [ 0, 0 ]
             Pilot: [ 0, 0 ]
