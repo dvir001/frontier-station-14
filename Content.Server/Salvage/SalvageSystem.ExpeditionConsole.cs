@@ -23,7 +23,9 @@ public sealed partial class SalvageSystem
 
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
 
-    private const float ShuttleFTLMassThreshold = 50f;
+    private const float ShuttleSelfFTLMassThreshold = 25f; // Frontier - 50 Tiles to allow FTL
+    private const float ShuttleRangeFTLMassThreshold = 10f; // Frontier - Block FTL if any grid around is bigger then 20
+
     private const float ShuttleFTLRange = 150f;
 
     private void OnSalvageClaimMessage(EntityUid uid, SalvageExpeditionConsoleComponent component, ClaimSalvageMessage args)
@@ -66,11 +68,20 @@ public sealed partial class SalvageSystem
             var xform = Transform(grid);
             var bounds = xform.WorldMatrix.TransformBox(gridComp.LocalAABB).Enlarged(ShuttleFTLRange);
             var bodyQuery = GetEntityQuery<PhysicsComponent>();
+
+            if (!bodyQuery.TryGetComponent(grid, out var selfBody) || selfBody.Mass > ShuttleSelfFTLMassThreshold)
+            {
+                PlayDenySound(uid, component);
+                _popupSystem.PopupEntity(Loc.GetString("shuttle-ftl-mass"), uid, PopupType.MediumCaution);
+                UpdateConsoles(station.Value, data);
+                return;
+            }
+
             foreach (var other in _mapManager.FindGridsIntersecting(xform.MapID, bounds))
             {
                 if (grid == other.Owner ||
-                    !bodyQuery.TryGetComponent(other.Owner, out var body) ||
-                    body.Mass < ShuttleFTLMassThreshold)
+                    !bodyQuery.TryGetComponent(other.Owner, out var otherBody) ||
+                    otherBody.Mass < ShuttleRangeFTLMassThreshold)
                 {
                     continue;
                 }
