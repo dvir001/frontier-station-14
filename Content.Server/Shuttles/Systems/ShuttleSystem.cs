@@ -7,6 +7,7 @@ using Content.Server.Procedural;
 using Content.Server.Shuttles.Components;
 using Content.Server.Station.Systems;
 using Content.Server.Stunnable;
+using Content.Shared.Damage;
 using Content.Shared.GameTicking;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Shuttles.Systems;
@@ -58,7 +59,8 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
     [Dependency] private readonly ThrowingSystem _throwing = default!;
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
-    [Dependency] private readonly GameTicker _ticker = default!; //frontier edit to get the main map in FTL
+    [Dependency] private readonly GameTicker _ticker = default!; // Frontier edit to get the main map in FTL
+    [Dependency] private readonly DamageableSystem _damage = default!; // Frontier
 
     private EntityQuery<MapGridComponent> _gridQuery;
 

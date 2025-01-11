@@ -5,9 +5,11 @@ using Content.Server._NF.Shuttles.Components; // Frontier: FTL knockdown immunit
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Server.Station.Events;
+using Content.Shared._NF.Trade.Components;
 using Content.Shared.Body.Components;
 using Content.Shared.Buckle.Components;
 using Content.Shared.CCVar;
+using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.Ghost;
 using Content.Shared.Maps;
@@ -646,6 +648,16 @@ public sealed partial class ShuttleSystem
                     TossIfSpaced((xform.GridUid.Value, grid, shuttleBody), child);
             }
         }
+
+        foreach (var child in toKnock) // Frontier: fuck dam crates up
+        {
+            if (HasComp<TradeCrateComponent>(child) && TryComp(child, out TransformComponent? crateTransform) && crateTransform.Anchored)
+                continue;
+
+            DamageSpecifier damage = new();
+            damage.DamageDict.Add("Structural", 200f);
+            _damage.TryChangeDamage(child, damage, true);
+        }
     }
 
     private void LeaveNoFTLBehind(Entity<TransformComponent> grid, Matrix3x2 oldGridMatrix, EntityUid? oldMapUid)
@@ -679,7 +691,7 @@ public sealed partial class ShuttleSystem
         var childEnumerator = xform.ChildEnumerator;
         while (childEnumerator.MoveNext(out var child))
         {
-            if (!_buckleQuery.TryGetComponent(child, out var buckle) || buckle.Buckled)
+            if (!HasComp<TradeCrateComponent>(child) && (!_buckleQuery.TryGetComponent(child, out var buckle) || buckle.Buckled)) // Frontier: Added TradeCrateComponent lookup
                 continue;
 
             toKnock.Add(child);
