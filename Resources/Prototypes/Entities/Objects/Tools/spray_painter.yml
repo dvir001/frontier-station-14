@@ -15,7 +15,7 @@
     interfaces:
       enum.SprayPainterUiKey.Key:
         type: SprayPainterBoundUserInterface
-  - type: NFSprayPainter # Frontier SprayPainter<NFSprayPainter
+  - type: SprayPainter
     colorPalette:
       red: '#FF1212FF'
       yellow: '#B3A234FF'

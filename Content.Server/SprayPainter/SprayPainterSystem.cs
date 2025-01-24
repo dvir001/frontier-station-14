@@ -21,7 +21,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
 
         SubscribeLocalEvent<SprayPainterComponent, SprayPainterPipeDoAfterEvent>(OnPipeDoAfter);
 
-        //SubscribeLocalEvent<AtmosPipeColorComponent, InteractUsingEvent>(OnPipeInteract); // Frontier
+        SubscribeLocalEvent<AtmosPipeColorComponent, InteractUsingEvent>(OnPipeInteract);
     }
 
     private void OnPipeDoAfter(Entity<SprayPainterComponent> ent, ref SprayPainterPipeDoAfterEvent args)
