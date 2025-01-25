@@ -60,12 +60,13 @@ public abstract class SharedConveyorController : VirtualController
 
         if (HasComp<TradeCrateComponent>(otherUid))
         {
+
             EnsureComp<CollisionWakeComponent>(otherUid);
             EnsureComp<DamageOnHighSpeedImpactComponent>(otherUid, out var impact);
             impact.MinimumSpeed = 1;
             DamageSpecifier damage = new();
-            //impact.Damage = damage.DamageDict = { "Structural", 5 };
-
+            damage.DamageDict.Add("Structural", 5);
+            impact.Damage = damage;
         }
 
         if (conveyed.Colliding.Contains(uid))
