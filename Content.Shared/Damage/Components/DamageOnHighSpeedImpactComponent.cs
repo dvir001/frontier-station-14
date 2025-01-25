@@ -8,7 +8,7 @@ namespace Content.Shared.Damage.Components;
 /// <summary>
 /// Should the entity take damage / be stunned if colliding at a speed above MinimumSpeed?
 /// </summary>
-[RegisterComponent, NetworkedComponent, Access(typeof(DamageOnHighSpeedImpactSystem))]
+[RegisterComponent, NetworkedComponent] // Frontier , Access(typeof(DamageOnHighSpeedImpactSystem))]
 public sealed partial class DamageOnHighSpeedImpactComponent : Component
 {
     [DataField("minimumSpeed"), ViewVariables(VVAccess.ReadWrite)]

@@ -1,5 +1,8 @@
-﻿using System.Numerics;
+using System.Numerics;
+using Content.Shared._NF.Trade.Components; // Frontier
 using Content.Shared.Conveyor;
+using Content.Shared.Damage; // Frontier
+using Content.Shared.Damage.Components; // Frontier
 using Content.Shared.Gravity;
 using Content.Shared.Magic;
 using Content.Shared.Movement.Systems;
@@ -22,6 +25,8 @@ public abstract class SharedConveyorController : VirtualController
     [Dependency] private readonly SharedMapSystem _maps = default!;
     [Dependency] protected readonly SharedPhysicsSystem Physics = default!;
     [Dependency] private readonly SharedGravitySystem _gravity = default!;
+
+    [Dependency] private readonly DamageableSystem _damageable = default!; // Frontier
 
     protected const string ConveyorFixture = "conveyor";
 
@@ -52,6 +57,16 @@ public abstract class SharedConveyorController : VirtualController
             return;
 
         var conveyed = EnsureComp<ConveyedComponent>(otherUid);
+
+        if (HasComp<TradeCrateComponent>(otherUid))
+        {
+            EnsureComp<CollisionWakeComponent>(otherUid);
+            EnsureComp<DamageOnHighSpeedImpactComponent>(otherUid, out var impact);
+            impact.MinimumSpeed = 1;
+            DamageSpecifier damage = new();
+            //impact.Damage = damage.DamageDict = { "Structural", 5 };
+
+        }
 
         if (conveyed.Colliding.Contains(uid))
             return;
@@ -89,6 +104,12 @@ public abstract class SharedConveyorController : VirtualController
         foreach (var ent in _ents)
         {
             RemComp<ConveyedComponent>(ent);
+
+            if (HasComp<TradeCrateComponent>(ent))
+            {
+                RemComp<CollisionWakeComponent>(ent);
+                RemComp<DamageOnHighSpeedImpactComponent>(ent);
+            }
         }
     }
 
