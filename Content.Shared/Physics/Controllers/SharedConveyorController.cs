@@ -6,6 +6,7 @@ using Content.Shared.Damage.Components; // Frontier
 using Content.Shared.Gravity;
 using Content.Shared.Magic;
 using Content.Shared.Movement.Systems;
+using Robust.Shared.Audio;
 using Robust.Shared.Collections;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -60,13 +61,13 @@ public abstract class SharedConveyorController : VirtualController
 
         if (HasComp<TradeCrateComponent>(otherUid))
         {
-
-            EnsureComp<CollisionWakeComponent>(otherUid);
             EnsureComp<DamageOnHighSpeedImpactComponent>(otherUid, out var impact);
-            impact.MinimumSpeed = 1;
+            impact.MinimumSpeed = 0.01f;
             DamageSpecifier damage = new();
             damage.DamageDict.Add("Structural", 5);
             impact.Damage = damage;
+            SoundSpecifier sound = new SoundCollectionSpecifier("MetalThud");
+            impact.SoundHit = sound;
         }
 
         if (conveyed.Colliding.Contains(uid))
@@ -108,7 +109,6 @@ public abstract class SharedConveyorController : VirtualController
 
             if (HasComp<TradeCrateComponent>(ent))
             {
-                RemComp<CollisionWakeComponent>(ent);
                 RemComp<DamageOnHighSpeedImpactComponent>(ent);
             }
         }
