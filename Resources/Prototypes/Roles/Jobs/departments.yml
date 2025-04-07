@@ -12,7 +12,7 @@
   name: department-Civilian
   description: department-NFCivilian-description # Frontier
   color: "#9FED58"
-  weight: 0 # Frontier: -10<0 accounted for in jobs
+  weight: -10
   roles:
   # - Bartender # Frontier
   # - Botanist # Frontier
@@ -33,6 +33,7 @@
   - Contractor # Frontier
   - Mercenary # Frontier
   - Pilot # Frontier
+  - Borg # Frontier
 
 - type: department
   id: CentralCommand
@@ -79,7 +80,7 @@
   - Sheriff  # Frontier
   - StationTrafficController # Frontier
   primary: false
-  weight: 2 # Frontier: 100<2 - accounted for in jobs
+  weight: 100
 
 - type: department
   id: Engineering
@@ -140,6 +141,7 @@
   - Borg
   - StationAi
   editorHidden: true # Frontier
+  primary: false # Frontier
 
 - type: department
   id: Specific
