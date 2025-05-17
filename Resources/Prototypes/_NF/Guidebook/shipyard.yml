@@ -40,6 +40,7 @@
   - ShipyardLyrae
   - ShipyardMcCargo
   - ShipyardMcDelivery
+  - ShipyardMcNugget
   - ShipyardNightlight
   - ShipyardNook
   - ShipyardPathfinder
@@ -236,6 +237,11 @@
   id: ShipyardMcDelivery
   name: guide-entry-shipyard-mcdelivery
   text: "/ServerInfo/_NF/Guidebook/Shipyard/McDelivery.xml"
+
+- type: guideEntry
+  id: ShipyardMcNugget
+  name: guide-entry-shipyard-mcnugget
+  text: "/ServerInfo/_NF/Guidebook/Shipyard/McNugget.xml"
 
 - type: guideEntry
   id: ShipyardNightlight

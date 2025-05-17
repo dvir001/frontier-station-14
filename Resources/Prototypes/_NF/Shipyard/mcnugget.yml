@@ -1,0 +1,42 @@
+# Author Info
+# GitHub: dvir001
+# Discord: dvir01 (84770870936997888)
+
+# Maintainer Info
+# GitHub: dvir001
+# Discord: dvir01 (84770870936997888)
+
+# Shuttle Notes:
+# 
+
+- type: vessel
+  id: McNugget
+  parent: BaseVessel
+  name: DC McNugget
+  description: "There is no running out of McMeat with this one."
+  price: 10000
+  category: Small
+  group: Custom
+  shuttlePath: /Maps/_NF/Shuttles/mcnugget.yml
+  guidebookPage: ShipyardMcNugget
+  class:
+  - Salvage
+  engine:
+  - Plasma
+
+- type: gameMap
+  id: McNugget
+  mapName: 'DC McNugget'
+  mapPath: /Maps/_NF/Shuttles/mcnugget.yml
+  minPlayers: 0
+  stations:
+    McNugget:
+      stationProto: StandardFrontierVessel
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: 'McNugget {1}'
+          nameGenerator:
+            !type:NanotrasenNameGenerator
+            prefixCreator: '14'
+        - type: StationJobs
+          availableJobs: {}
