@@ -1,12 +1,16 @@
 using Content.Server.Administration;
 using Content.Server.Body.Systems;
 using Content.Server.Cargo.Components;
+using Content.Server.Construction; // Add this for construction system methods
+using Content.Server.Construction.Components; // Add this for ComputerComponent, MachineComponent, and MachineFrameComponent
+using Content.Server.Construction.Completions; // Add this for GivePrototype and SpawnPrototype
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Administration;
 using Content.Shared.Body.Components;
 using Content.Shared.Cargo.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.Construction; // Add this for IGraphAction
 using Content.Shared.Materials;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -34,11 +38,15 @@ public sealed class PricingSystem : EntitySystem
     [Dependency] private readonly BodySystem _bodySystem = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency] private readonly SharedContainerSystem _containerSystem = default!; // Add this dependency
+    [Dependency] private readonly ConstructionSystem _constructionSystem = default!; // Add construction system dependency
 
     /// <inheritdoc/>
     public override void Initialize()
     {
         SubscribeLocalEvent<MobPriceComponent, PriceCalculationEvent>(CalculateMobPrice); // Frontier
+        SubscribeLocalEvent<MachineComponent, PriceCalculationEvent>(CalculateMachinePrice);
+        SubscribeLocalEvent<ConstructionComponent, PriceCalculationEvent>(CalculateConstructionPrice); // Frontier
 
         _consoleHost.RegisterCommand("appraisegrid",
             "Calculates the total value of the given grids.",
@@ -452,6 +460,115 @@ public sealed class PricingSystem : EntitySystem
         }
 
         return price;
+    }
+
+    private void CalculateMachinePrice(EntityUid uid, MachineComponent component, ref PriceCalculationEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        // Add the price of machine parts if they exist
+        if (_containerSystem.TryGetContainer(uid, MachineFrameComponent.PartContainerName, out var partsContainer))
+        {
+            foreach (var part in partsContainer.ContainedEntities)
+            {
+                // Get the price of each part (excluding contents to avoid recursion)
+                args.Price += GetPrice(part, includeContents: false);
+            }
+        }
+    }
+
+    private void CalculateConstructionPrice(EntityUid uid, ConstructionComponent component, ref PriceCalculationEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        foreach (var containerName in component.Containers)
+        {
+            if (_containerSystem.TryGetContainer(uid, containerName, out var container))
+            {
+                foreach (var containedEntity in container.ContainedEntities)
+                {
+                    // Get the price of each contained entity (excluding contents to avoid recursion)
+                    args.Price += GetPrice(containedEntity, includeContents: false);
+                }
+            }
+        }
+
+        // Additionally, check the construction graph for actions that will create valuable prototypes
+        // This handles cases where boards/parts aren't physically inserted yet but will be created during construction
+        var graph = _constructionSystem.GetCurrentGraph(uid, component);
+        var currentNode = _constructionSystem.GetCurrentNode(uid, component);
+
+        if (graph != null && currentNode != null)
+        {
+            // Look through all edges and their completion actions to find valuable prototypes that will be created
+            foreach (var edge in currentNode.Edges)
+            {
+                foreach (var action in edge.Completed)
+                {
+                    var actionPrice = GetGraphActionPrice(action);
+                    if (actionPrice > 0)
+                    {
+                        args.Price += actionPrice;
+                    }
+                }
+            }
+
+            //// Also check node actions for the current node
+            //foreach (var action in currentNode.Actions)
+            //{
+            //    var actionPrice = GetGraphActionPrice(action);
+            //    if (actionPrice > 0)
+            //    {
+            //        args.Price += actionPrice;
+            //    }
+            //}
+        }
+    }
+
+    private double GetGraphActionPrice(IGraphAction action)
+    {
+        // Handle SpawnPrototype actions - these create entities at the construction location
+        if (action is SpawnPrototype spawnAction)
+        {
+            if (!string.IsNullOrEmpty(spawnAction.Prototype))
+            {
+                if (_prototypeManager.TryIndex<EntityPrototype>(spawnAction.Prototype, out var proto))
+                {
+                    var unitPrice = GetEstimatedPrice(proto);
+                    return unitPrice * spawnAction.Amount;
+                }
+            }
+        }
+
+        // Handle GivePrototype actions - these give entities to the user
+        if (action is GivePrototype giveAction)
+        {
+            if (!string.IsNullOrEmpty(giveAction.Prototype))
+            {
+                if (_prototypeManager.TryIndex<EntityPrototype>(giveAction.Prototype, out var proto))
+                {
+                    var unitPrice = GetEstimatedPrice(proto);
+                    return unitPrice * giveAction.Amount;
+                }
+            }
+        }
+
+        // Handle SpawnPrototypeAtContainer actions - these create entities in containers
+        if (action is SpawnPrototypeAtContainer spawnAtContainerAction)
+        {
+            if (!string.IsNullOrEmpty(spawnAtContainerAction.Prototype))
+            {
+                if (_prototypeManager.TryIndex<EntityPrototype>(spawnAtContainerAction.Prototype, out var proto))
+                {
+                    var unitPrice = GetEstimatedPrice(proto);
+                    return unitPrice * spawnAtContainerAction.Amount;
+                }
+            }
+        }
+
+        return 0.0;
     }
 }
 
