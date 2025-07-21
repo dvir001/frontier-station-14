@@ -13,8 +13,8 @@
       anchored: False
     - type: Physics
       bodyType: Dynamic
-    - type: StaticPrice
-      price: 500
+#    - type: StaticPrice # Frontier
+#      price: 500 # Frontier
     - type: AmbientSound
       range: 5
       volume: -5

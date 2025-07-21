@@ -28,8 +28,6 @@
     - Drinks
   - type: StealTarget
     stealGroup: BoozeDispenser
-  - type: StaticPrice
-    price: 250
 
 - type: entity
   id: ImpCoffeeMachineEmpty

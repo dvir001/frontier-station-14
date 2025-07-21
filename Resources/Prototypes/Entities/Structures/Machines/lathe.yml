@@ -50,8 +50,8 @@
   - type: Transform
     anchored: true
   - type: Pullable
-  - type: StaticPrice
-    price: 800
+#  - type: StaticPrice # Frontier
+#    price: 800 # Frontier
   - type: ResearchClient
   - type: TechnologyDatabase
   - type: MaterialStorageMagnetPickup # Frontier

@@ -114,5 +114,3 @@
   - type: WiresPanel
   - type: Machine
     board: MobileEmpGeneratorMachineCircuitboard
-  - type: StaticPrice
-    price: 300

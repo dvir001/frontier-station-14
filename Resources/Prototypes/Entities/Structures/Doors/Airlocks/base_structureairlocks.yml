@@ -166,8 +166,8 @@
   #   department: Civilian # Upstream#37341
   - type: Paintable # Upstream#37341
     group: AirlockStandard # Upstream#37341
-  - type: StaticPrice
-    price: 150
+#  - type: StaticPrice # Frontier
+#    price: 150 # Frontier
   - type: LightningTarget
     priority: 1
   - type: Tag

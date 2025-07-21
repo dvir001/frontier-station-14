@@ -136,8 +136,8 @@
     lowVoltageNode: output
   - type: LightningTarget
     priority: 1
-  - type: StaticPrice
-    price: 500
+#  - type: StaticPrice # Frontier
+#    price: 500 # Frontier
   - type: GuideHelp
     guides:
     - VoltageNetworks

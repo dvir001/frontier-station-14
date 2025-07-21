@@ -66,8 +66,8 @@
           Gore: { state: pod_g }
           Idle: { state: pod_0 }
   - type: Climbable
-  - type: StaticPrice
-    price: 1000
+#  - type: StaticPrice # Frontier
+#    price: 1000 # Frontier
   - type: ContainerContainer
     containers:
       machine_board: !type:Container

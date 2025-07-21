@@ -59,7 +59,7 @@
         acts: ["Destruction"]
   - type: WiresVisuals
   - type: WiresPanel
-  - type: StaticPrice
-    price: 300 # Frontier: 1500<300
+#  - type: StaticPrice # Frontier
+#    price: 1500 # Frontier
   - type: MaterialStorageMagnetPickup # Frontier
     range: 0.3 # Frontier

@@ -107,8 +107,6 @@
     solution: output
   - type: ExaminableSolution
     solution: output
-  - type: StaticPrice
-    price: 500
   - type: ApcPowerReceiver
     powerLoad: 500 # Allows us to not use the 1000 baseline
   - type: MaterialReclaimerMagnetPickup

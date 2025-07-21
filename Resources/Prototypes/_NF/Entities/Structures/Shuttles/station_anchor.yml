@@ -10,8 +10,6 @@
     activeChargingPower: 500
   - type: ApcPowerReceiver
     powerLoad: 500
-  - type: StaticPrice
-    price: 300
   - type: Machine
     board: MiniStationAnchorCircuitboard
   - type: Fixtures

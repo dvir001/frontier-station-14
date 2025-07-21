@@ -58,8 +58,8 @@
   - type: Construction
     graph: AirlockShuttle
     node: airlock
-  - type: StaticPrice
-    price: 350
+#  - type: StaticPrice # Frontier
+#    price: 350 # Frontier
   - type: Paintable # Upstream#37341
     group: null # Upstream#37341
 

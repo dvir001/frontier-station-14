@@ -31,8 +31,8 @@
     - Off
   - type: AutoShootGun
   - type: GunSignalControl
-  - type: StaticPrice
-    price: 1500
+#  - type: StaticPrice # Frontier
+#    price: 1500 # Frontier
   - type: Repairable # Frontier
     doAfterDelay: 3 # Frontier
 

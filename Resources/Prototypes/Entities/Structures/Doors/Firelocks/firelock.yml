@@ -124,8 +124,8 @@
       enabled: false
     - type: WallMount
       arc: 360
-    - type: StaticPrice
-      price: 150
+#    - type: StaticPrice # Frontier
+#      price: 150 # Frontier
     - type: AccessReader
       access: [ [ "Maintenance" ] ] # Frontier: Engineering<Maintenance
     - type: PryUnpowered
@@ -221,8 +221,8 @@
       occludes: false
     - type: Physics
       canCollide: false
-    - type: StaticPrice
-      price: 100
+#    - type: StaticPrice # Frontier
+#      price: 100 # Frontier
     - type: Construction
       graph: Firelock
       node: FirelockEdge

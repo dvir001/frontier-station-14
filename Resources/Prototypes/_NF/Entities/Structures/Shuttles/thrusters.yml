@@ -38,8 +38,6 @@
         - SmallMobMask #this is so they can go under plastic flaps
         layer:
         - MachineLayer
-  - type: StaticPrice
-    price: 100
   - type: Machine
     board: SmallThrusterMachineCircuitboard
 
@@ -83,8 +81,6 @@
         - SmallMobMask #this is so they can go under plastic flaps
         layer:
         - MachineLayer
-  - type: StaticPrice
-    price: 100
   - type: Machine
     board: SmallGyroscopeMachineCircuitboard
 
@@ -206,8 +202,6 @@
       map: ["enum.ThrusterVisualLayers.ThrustingUnshaded"]
       shader: unshaded
       visible: false
-  - type: StaticPrice
-    price: 100
   - type: Machine
     board: SmallGyroscopeSecurityMachineCircuitboard
   - type: Fixtures # Small gyro, small fixture

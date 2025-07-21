@@ -106,8 +106,8 @@
         - !type:PlaySoundBehavior
           sound:
             collection: MetalBreak
-    - type: StaticPrice
-      price: 300 # Frontier 10000<300
+#    - type: StaticPrice # Frontier
+#      price: 10000 # Frontier
     - type: Machine
       board: StationAnchorCircuitboard
     - type: ContainerContainer

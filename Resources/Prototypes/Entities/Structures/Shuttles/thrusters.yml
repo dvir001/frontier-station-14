@@ -42,8 +42,8 @@
           - !type:PlaySoundBehavior
             sound:
               collection: MetalBreak
-    - type: StaticPrice
-      price: 300
+#    - type: StaticPrice # Frontier
+#      price: 300 # Frontier
     - type: GuideHelp
       guides:
       - ShuttleCraft
@@ -206,8 +206,8 @@
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: Electronic
-  - type: StaticPrice
-    price: 300 # Frontier - 2000<300
+#  - type: StaticPrice # Frontier
+#    price: 2000 # Frontier
   - type: PirateBountyItem # Frontier
     id: Gyroscope # Frontier
 

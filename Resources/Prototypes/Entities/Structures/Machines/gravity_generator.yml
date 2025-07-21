@@ -78,8 +78,8 @@
     # Gravity generator is a large machine, not casting shadows is fine within the radius set above.
     castShadows: false
     color: "#a8ffd9"
-  - type: StaticPrice
-    price: 0 # Frontier 5000<0
+#  - type: StaticPrice # Frontier
+#    price: 5000 # Frontier
   - type: PirateBountyItem # Frontier
     id: GravityGenerator # Frontier
 
@@ -141,5 +141,5 @@
   - type: GravityGenerator
     lightRadiusMin: 0.75
     lightRadiusMax: 2.5
-  - type: StaticPrice
-    price: 300 # Frontier 2000<300
+#  - type: StaticPrice # Frontier
+#    price: 2000 # Frontier

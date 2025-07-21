@@ -70,6 +70,6 @@
       machine_board: !type:Container
       machine_parts: !type:Container
       beakerSlot: !type:ContainerSlot
-  - type: StaticPrice
-    price: 1000
+#  - type: StaticPrice # Frontier
+#    price: 1000 # Frontier
   - type: WiresPanel

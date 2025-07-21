@@ -32,7 +32,7 @@
   - type: ApcPowerReceiver
     powerLoad: 500
   - type: StaticPrice
-    price: 1500
+    price: 0
   - type: Transform
     noRot: true
   - type: Fixtures
